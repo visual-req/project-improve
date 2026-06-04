@@ -1,14 +1,10 @@
 # プロジェクトORID 継続的改善
 
+[中文](./README.md) | [English](./README.en-US.md) | [日本語](./README.ja-JP.md)
+
 このリポジトリは以下を提供します：
 - Skill によるワークフロー実行：**データ収集 → メトリクス/課題発見 → ORID による継続的改善**
 - 結果閲覧とアクション計画管理のための軽量 Web UI（Vue + Ant Design Vue）
-
-## 言語
-
-- 日本語（このファイル）
-- [简体中文](./README.md)
-- [English](./README.en-US.md)
 
 ## 先に読む
 

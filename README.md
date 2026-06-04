@@ -1,17 +1,13 @@
 # 项目ORID持续改进
 
+[中文](./README.md) | [English](./README.en-US.md) | [日本語](./README.ja-JP.md)
+
 持续改进之所以重要，是因为项目交付的真实瓶颈往往不是“某个点做得不够努力”，而是系统性的流动问题（等待、返工、信息不对称、过大变更、质量回流）。如果没有持续改进：
 - 指标会停留在“看到了”，但无法形成可验收的行动
 - 复盘会容易变成口号、归因或一轮轮重复同样的问题
 - 团队能力与交付稳定性难以累积，问题只会在不同迭代以不同形式反复出现
 
 本仓库包含一个用于“项目度量数据获取 → 指标分析 → 基于 ORID 的持续改进闭环”的 skill，以及一个用于展示分析结果的前端工程（Vue + Ant Design Vue）。
-
-## Language
-
-- 中文（当前）：[README.md](./README.md)
-- English: [README.en-US.md](./README.en-US.md)
-- 日本語: [README.ja-JP.md](./README.ja-JP.md)
 
 ## 阅读入口
 

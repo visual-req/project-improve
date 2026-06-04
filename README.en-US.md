@@ -1,14 +1,10 @@
 # Project ORID Continuous Improvement
 
+[中文](./README.md) | [English](./README.en-US.md) | [日本語](./README.ja-JP.md)
+
 This repository provides:
 - A Skill to run the workflow: **data collection → metrics/insights → ORID-based continuous improvement**
 - A lightweight web UI (Vue + Ant Design Vue) to review results and manage action plans
-
-## Language
-
-- English (this file)
-- [简体中文](./README.md)
-- [日本語](./README.ja-JP.md)
 
 ## Read First
 
