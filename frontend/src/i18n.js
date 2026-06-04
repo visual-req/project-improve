@@ -1,4 +1,6 @@
-import { computed, ref } from "vue";
+const Vue = (typeof window !== "undefined" && (window.__VUE__ || window.Vue)) || null;
+const ref = Vue && Vue.ref ? Vue.ref : null;
+const computed = Vue && Vue.computed ? Vue.computed : null;
 
 const STORAGE_KEY = "prjmx.locale";
 
@@ -192,7 +194,7 @@ const DICT = {
   }
 };
 
-const locale = ref("zh-CN");
+const locale = ref ? ref("zh-CN") : { value: "zh-CN" };
 
 function loadLocale() {
   try {
@@ -226,7 +228,7 @@ function t(key, params) {
 }
 
 function useI18n() {
-  const currentLocale = computed(() => locale.value);
+  const currentLocale = computed ? computed(() => locale.value) : { value: locale.value };
   return { t, locale: currentLocale, setLocale, loadLocale, supportedLocales: Object.keys(DICT) };
 }
 

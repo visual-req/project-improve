@@ -7,12 +7,20 @@
 
 本仓库包含一个用于“项目度量数据获取 → 指标分析 → 基于 ORID 的持续改进闭环”的 skill，以及一个用于展示分析结果的前端工程（Vue + Ant Design Vue）。
 
+## Language
+
+- 中文（当前）：[README.md](./README.md)
+- English: [README.en.md](./README.en.md)
+- 日本語: [README.ja.md](./README.ja.md)
+
 ## 阅读入口
 
 - 快速开始（必读）：[docs/getting-started.md](./docs/getting-started.md)
 - 首次配置（必读）：[docs/config.md](./docs/config.md)
 - 使用手册（建议先看）：[docs/manual.md](./docs/manual.md)
 - 常见问题（遇到报错先看）：[docs/troubleshooting.md](./docs/troubleshooting.md)
+- English docs: [docs/getting-started.en.md](./docs/getting-started.en.md)
+- 日本語 docs: [docs/getting-started.ja.md](./docs/getting-started.ja.md)
 - 总入口（Skill）：[skill/SKILL.md](./skill/SKILL.md)
 - 概念与方法论（ORID/PDCA/反模式/行动项）：[docs/concept.md](./docs/concept.md)
 - 指标体系与分组：[docs/metrics.md](./docs/metrics.md)
