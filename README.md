@@ -9,13 +9,15 @@
 
 ## 阅读入口
 
+- 快速开始（必读）：[docs/getting-started.md](./docs/getting-started.md)
+- 首次配置（必读）：[docs/config.md](./docs/config.md)
+- 使用手册（建议先看）：[docs/manual.md](./docs/manual.md)
+- 常见问题（遇到报错先看）：[docs/troubleshooting.md](./docs/troubleshooting.md)
 - 总入口（Skill）：[skill/SKILL.md](./skill/SKILL.md)
 - 概念与方法论（ORID/PDCA/反模式/行动项）：[docs/concept.md](./docs/concept.md)
 - 指标体系与分组：[docs/metrics.md](./docs/metrics.md)
-- 配置说明（work/meta/config.yaml）：[docs/config.md](./docs/config.md)
 - 工作流说明：[docs/workflow.md](./docs/workflow.md)
 - 命令说明：[docs/commands.md](./docs/commands.md)
-- 常见问题：[docs/troubleshooting.md](./docs/troubleshooting.md)
 
 ## 快速启动
 

@@ -1,6 +1,6 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
-    <a-button type="primary" @click="requestRunSkill('orid')">执行持续改进</a-button>
+    <a-button type="primary" @click="requestRunSkill('orid')">{{ t("analysis.run.orid") }}</a-button>
     <a-alert v-if="oridError" type="warning" show-icon :message="oridError" />
     <a-card size="small" title="输入/输出文件">
       <ul style="margin: 0; padding-left: 18px">
@@ -33,8 +33,8 @@
         </div>
       </a-space>
     </a-card>
-    <div v-if="!reportData" style="color: rgba(0, 0, 0, 0.65)">尚未读取到改进报告。</div>
-    <a-alert v-else type="success" show-icon message="改进报告已生成" />
+    <div v-if="!reportData" style="color: rgba(0, 0, 0, 0.65)">{{ t("analysis.noReportYet") }}</div>
+    <a-alert v-else type="success" show-icon :message="t('analysis.reportReady')" />
 
     <a-card v-if="reportData" size="small" title="指标与问题的关联（把现象对齐到证据口径）">
       <div v-if="linkRows.length === 0" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">—</div>
@@ -49,12 +49,12 @@
       </a-table>
     </a-card>
 
-    <a-card v-if="reportData" size="small" title="候选行动项">
+    <a-card v-if="reportData" size="small" :title="t('analysis.actionCandidates')">
       <a-space wrap align="center" style="margin-bottom: 10px">
         <a-button type="primary" :disabled="selectedKeys.length === 0" @click="addSelectedActionsToPlan">纳入行动计划</a-button>
         <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">纳入后可在“行动项管理”中维护进度与实际效果</span>
       </a-space>
-      <div v-if="actionCandidates.length === 0" style="color: rgba(0, 0, 0, 0.65)">未提供候选行动项（可能未完成分析，或数据不足）。</div>
+      <div v-if="actionCandidates.length === 0" style="color: rgba(0, 0, 0, 0.65)">—</div>
       <a-table
         v-else
         :row-selection="rowSelection"
@@ -128,12 +128,12 @@
       <template #footer>
         <a-space direction="vertical" style="width: 100%" :size="8">
           <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px">
-            候选行动项是分析生成的建议清单；加入行动计划后会进入“行动项管理”，用于分配负责人、维护进度、记录实际效果并形成闭环。候选行动项可能随新一轮分析变化，但行动计划会保留你的落地执行记录。
+            {{ t("analysis.addToPlanHelp") }}
           </div>
           <a-space style="width: 100%" align="center" :size="10">
-            <a-button type="default" @click="detailVisible = false">关闭</a-button>
-            <a-button type="primary" :disabled="detailAlreadyAdded" @click="addDetailToPlan">添加到行动计划</a-button>
-            <span v-if="detailAlreadyAdded" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">该行动项已在行动计划中</span>
+            <a-button type="default" @click="detailVisible = false">{{ t("common.close") }}</a-button>
+            <a-button type="primary" :disabled="detailAlreadyAdded" @click="addDetailToPlan">{{ t("analysis.addToPlan") }}</a-button>
+            <span v-if="detailAlreadyAdded" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">{{ t("analysis.addedToPlanHint") }}</span>
           </a-space>
         </a-space>
       </template>
@@ -144,6 +144,7 @@
 <script>
 import { computed, ref } from "vue";
 import { message } from "ant-design-vue";
+import { useI18n } from "../../i18n.js";
 
 export default {
   props: {
@@ -156,6 +157,7 @@ export default {
     collectViz: { type: [Object, null], default: null }
   },
   setup(props) {
+    const { t } = useI18n();
     function safeParse(text) {
       try {
         const v = JSON.parse(String(text || ""));
@@ -599,6 +601,7 @@ export default {
     });
 
     return {
+      t,
       columns,
       actionCandidates,
       selectedKeys,

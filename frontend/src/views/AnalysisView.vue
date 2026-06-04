@@ -1,20 +1,20 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
     <a-space wrap align="center">
-      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">项目</span>
+      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ t("common.project") }}</span>
       <a-select v-model:value="selectedProjectIdModel" style="min-width: 320px">
         <a-select-option v-for="(p, idx) in projects" :key="String(p.id) + ':' + String(idx)" :value="String(p.id)">
           {{ projectLabel(p, idx) }}
         </a-select-option>
       </a-select>
-      <a-button type="default" @click="emit('reloadProjects')">重载项目列表</a-button>
+      <a-button type="default" @click="emit('reloadProjects')">{{ t("common.reloadProjects") }}</a-button>
       <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ statusText }}</span>
     </a-space>
 
     <a-alert v-if="errorText" type="error" show-icon :message="errorText" />
 
     <a-tabs v-model:activeKey="activeStep">
-      <a-tab-pane key="collect" tab="收集数据">
+      <a-tab-pane key="collect" :tab="t('analysis.tabs.collect')">
         <AnalysisCollectTab
           :selectedProjectIdModel="selectedProjectIdModel"
           :requestRunSkill="requestRunSkill"
@@ -29,7 +29,7 @@
         />
       </a-tab-pane>
 
-      <a-tab-pane key="metrics" tab="问题发现">
+      <a-tab-pane key="metrics" :tab="t('analysis.tabs.metrics')">
         <AnalysisMetricsTab
           :selectedProjectIdModel="selectedProjectIdModel"
           :requestRunSkill="requestRunSkill"
@@ -39,7 +39,7 @@
         />
       </a-tab-pane>
 
-      <a-tab-pane key="orid" tab="持续改进">
+      <a-tab-pane key="orid" :tab="t('analysis.tabs.orid')">
         <AnalysisOridTab
           :selectedProjectIdModel="selectedProjectIdModel"
           :requestRunSkill="requestRunSkill"
@@ -67,6 +67,7 @@
 <script>
 import { computed, onMounted, ref, watch } from "vue";
 import { message } from "ant-design-vue";
+import { useI18n } from "../i18n.js";
 import AnalysisCollectTab from "../components/analysis/AnalysisCollectTab.vue";
 import AnalysisMetricsTab from "../components/analysis/AnalysisMetricsTab.vue";
 import AnalysisOridTab from "../components/analysis/AnalysisOridTab.vue";
@@ -80,6 +81,7 @@ export default {
   },
   emits: ["reloadProjects", "update:selectedProjectId"],
   setup(props, { emit }) {
+    const { t } = useI18n();
     const projects = computed(() => (Array.isArray(props.projects) ? props.projects : []));
 
     const selectedProjectIdModel = computed({
@@ -1028,6 +1030,7 @@ async function requestRunSkill(kind) {
     onMounted(() => reloadAllOutputs());
 
     return {
+      t,
       emit,
       props,
       projects,

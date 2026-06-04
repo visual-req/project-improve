@@ -1,20 +1,20 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
-    <a-button type="primary" @click="requestRunSkill('metrics')">执行问题发现</a-button>
+    <a-button type="primary" @click="requestRunSkill('metrics')">{{ t("analysis.run.metrics") }}</a-button>
     <a-alert v-if="metricsError" type="warning" show-icon :message="metricsError" />
-    <a-card size="small" title="输入/输出文件">
+    <a-card size="small" :title="t('analysis.files')">
       <ul style="margin: 0; padding-left: 18px">
         <li>输入：/work/{{ selectedProjectIdModel || "&lt;project_id&gt;" }}/meta/config.yaml</li>
         <li>输入：/work/outputs/{{ selectedProjectIdModel || "&lt;project_id&gt;" }}/project-metrics-orid/raw.json</li>
         <li>输出：/work/outputs/{{ selectedProjectIdModel || "&lt;project_id&gt;" }}/project-metrics-orid/metrics.json</li>
       </ul>
     </a-card>
-    <a-card size="small" title="本次分析范围（按度量指标选择）">
+    <a-card size="small" :title="t('analysis.scope')">
       <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px">
         已选指标：{{ enabledMetricKeys.length }} 个{{ enabledMetricKeys.length ? "" : "（未选择时默认不展示，请先到“度量指标配置”勾选）" }}
       </div>
     </a-card>
-    <div v-if="!metricsData" style="color: rgba(0, 0, 0, 0.65)">尚未读取到 metrics.json。</div>
+    <div v-if="!metricsData" style="color: rgba(0, 0, 0, 0.65)">{{ t("analysis.noMetricsYet") }}</div>
     <a-collapse v-else :bordered="false" style="background: transparent">
       <a-collapse-panel key="flow" header="流动（Flow）">
         <div v-if="groupedCards.flow.length === 0" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">—</div>
@@ -86,6 +86,7 @@
 
 <script>
 import { computed } from "vue";
+import { useI18n } from "../../i18n.js";
 
 export default {
   props: {
@@ -96,6 +97,7 @@ export default {
     enabledMetricKeys: { type: Array, default: () => [] }
   },
   setup(props) {
+    const { t } = useI18n();
     function safeNumber(value) {
       const n = typeof value === "number" ? value : Number(value);
       return Number.isFinite(n) ? n : null;
@@ -368,7 +370,7 @@ export default {
       return groups;
     });
 
-    return { tagText, groupedCards, metricsTableColumns };
+    return { t, tagText, groupedCards, metricsTableColumns };
   }
 };
 </script>

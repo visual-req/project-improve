@@ -1,8 +1,8 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="10">
-    <a-button type="primary" @click="requestRunSkill('collect')">执行收集数据</a-button>
+    <a-button type="primary" @click="requestRunSkill('collect')">{{ t("analysis.run.collect") }}</a-button>
     <a-alert v-if="collectError" type="warning" show-icon :message="collectError" />
-    <a-card size="small" title="输入/输出文件">
+    <a-card size="small" :title="t('analysis.files')">
       <ul style="margin: 0; padding-left: 18px">
         <li>输入：/work/{{ selectedProjectIdModel || "&lt;project_id&gt;" }}/meta/config.yaml</li>
         <li>输出：/work/outputs/{{ selectedProjectIdModel || "&lt;project_id&gt;" }}/project-metrics-orid/raw.json</li>
@@ -98,6 +98,8 @@
 </template>
 
 <script>
+import { useI18n } from "../../i18n.js";
+
 export default {
   props: {
     selectedProjectIdModel: { type: String, default: "" },
@@ -113,6 +115,10 @@ export default {
       default: () => ({ sources: { jira_issues: null, git_commits: null, git_pull_requests: null, ci_runs: null }, issueStatus: [], prStates: [], ciStates: [] })
     },
     simpleCountColumns: { type: Array, default: () => [] }
+  },
+  setup() {
+    const { t } = useI18n();
+    return { t };
   },
   data() {
     return {

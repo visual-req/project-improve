@@ -4,16 +4,23 @@
       <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
         <div style="display: flex; align-items: center; gap: 10px">
           <img src="/frontend/favicon.svg" alt="icon" style="width: 22px; height: 22px" />
-          <div style="font-size: 16px; font-weight: 600">项目ORID持续改进</div>
+          <div style="font-size: 16px; font-weight: 600">{{ t("app.title") }}</div>
         </div>
-        <a-menu mode="horizontal" :selectedKeys="[activePage]" style="border-bottom: 0; line-height: 62px">
-          <a-menu-item key="analysis" @click="go('analysis')">项目分析</a-menu-item>
-          <a-menu-item key="configSystem" @click="go('configSystem')">系统访问配置</a-menu-item>
-          <a-menu-item key="configMetrics" @click="go('configMetrics')">度量指标配置</a-menu-item>
-          <a-menu-item key="concept" @click="go('concept')">理念</a-menu-item>
-          <a-menu-item key="projectManage" @click="go('projectManage')">项目管理</a-menu-item>
-          <a-menu-item key="actions" @click="go('actions')">行动项管理</a-menu-item>
-        </a-menu>
+        <a-space align="center" :size="12" style="flex: 1; justify-content: flex-end">
+          <a-menu mode="horizontal" :selectedKeys="[activePage]" style="border-bottom: 0; line-height: 62px">
+            <a-menu-item key="analysis" @click="go('analysis')">{{ t("nav.analysis") }}</a-menu-item>
+            <a-menu-item key="configSystem" @click="go('configSystem')">{{ t("nav.configSystem") }}</a-menu-item>
+            <a-menu-item key="configMetrics" @click="go('configMetrics')">{{ t("nav.configMetrics") }}</a-menu-item>
+            <a-menu-item key="concept" @click="go('concept')">{{ t("nav.concept") }}</a-menu-item>
+            <a-menu-item key="projectManage" @click="go('projectManage')">{{ t("nav.projectManage") }}</a-menu-item>
+            <a-menu-item key="actions" @click="go('actions')">{{ t("nav.actions") }}</a-menu-item>
+          </a-menu>
+          <a-select :value="locale" style="width: 132px" @change="setLocale">
+            <a-select-option value="zh-CN">中文</a-select-option>
+            <a-select-option value="ja-JP">日本語</a-select-option>
+            <a-select-option value="en-US">English</a-select-option>
+          </a-select>
+        </a-space>
       </div>
     </a-layout-header>
 
@@ -39,6 +46,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { load } from "js-yaml";
 import { getInitialRoute, listenRouteChange, navigateTo } from "./routes.js";
+import { useI18n } from "./i18n.js";
 import AnalysisView from "./views/AnalysisView.vue";
 import ConceptView from "./views/ConceptView.vue";
 import ConfigSystemView from "./views/ConfigSystemView.vue";
@@ -49,6 +57,7 @@ import ActionPlanView from "./views/ActionPlanView.vue";
 export default {
   components: { AnalysisView, ConceptView, ConfigSystemView, ConfigMetricsView, ProjectManageView, ActionPlanView },
   setup() {
+    const { t, locale, setLocale, loadLocale } = useI18n();
     const activePage = ref("analysis");
 
     const workspaceConfig = ref(null);
@@ -76,6 +85,7 @@ export default {
 
     let stopListen = null;
     onMounted(() => {
+      loadLocale();
       loadWorkspaceConfig();
       const r = getInitialRoute();
       activePage.value = String(r.page || "analysis");
@@ -123,6 +133,9 @@ export default {
     }
 
     return {
+      t,
+      locale,
+      setLocale,
       activePage,
       workspaceConfig,
       projects,

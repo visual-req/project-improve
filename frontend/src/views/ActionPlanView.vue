@@ -1,24 +1,24 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
     <a-space wrap align="center">
-      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">项目</span>
+      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ t("common.project") }}</span>
       <a-select v-model:value="selectedProjectIdModel" style="min-width: 320px">
         <a-select-option v-for="(p, idx) in projectsSafe" :key="String(p.id) + ':' + String(idx)" :value="String(p.id)">
           {{ projectLabel(p, idx) }}
         </a-select-option>
       </a-select>
-      <a-button type="default" @click="openCreateAction">新增自定义行动项</a-button>
+      <a-button type="default" @click="openCreateAction">{{ t("plan.addCustom") }}</a-button>
     </a-space>
 
     <a-space wrap align="center">
-      <a-button type="default" :loading="savingSnapshot" @click="saveSnapshot">保存改进快照</a-button>
+      <a-button type="default" :loading="savingSnapshot" @click="saveSnapshot">{{ t("plan.saveSnapshot") }}</a-button>
       <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ planSummaryText }}</span>
     </a-space>
 
     <a-alert v-if="errorText" type="error" show-icon :message="errorText" />
 
-    <a-card size="small" title="行动计划（actions.json）">
-      <div v-if="planItems.length === 0" style="color: rgba(0, 0, 0, 0.65)">暂无行动项。可新增自定义行动项。</div>
+    <a-card size="small" :title="t('plan.title')">
+      <div v-if="planItems.length === 0" style="color: rgba(0, 0, 0, 0.65)">{{ t("plan.empty") }}</div>
       <a-table v-else :columns="planColumns" :data-source="planItems" size="small" :pagination="{ pageSize: 8 }" :scroll="{ x: 1600 }">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'status'">
@@ -29,10 +29,10 @@
           </template>
           <template v-else-if="column.key === 'op'">
             <a-space>
-              <a-button size="small" type="link" @click="openDetailAction(record)">详情</a-button>
-              <a-button size="small" type="link" @click="openEditAction(record)">编辑</a-button>
-              <a-popconfirm title="确认删除该行动项？" ok-text="删除" cancel-text="取消" @confirm="removePlanItem(record.key)">
-                <a-button size="small" type="link" danger>删除</a-button>
+              <a-button size="small" type="link" @click="openDetailAction(record)">{{ t("common.detail") }}</a-button>
+              <a-button size="small" type="link" @click="openEditAction(record)">{{ t("common.edit") }}</a-button>
+              <a-popconfirm :title="t('common.confirmDelete')" :ok-text="t('common.delete')" :cancel-text="t('common.cancel')" @confirm="removePlanItem(record.key)">
+                <a-button size="small" type="link" danger>{{ t("common.delete") }}</a-button>
               </a-popconfirm>
             </a-space>
           </template>
@@ -168,11 +168,11 @@
       <template #footer>
         <a-space direction="vertical" style="width: 100%" :size="8">
           <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px">
-            行动计划用于管理“已确认要落地的行动项”，可以持续维护负责人、进度与实际效果；候选行动项来自分析建议，可能随新一轮分析发生变化。
+            {{ t("plan.footerHelp") }}
           </div>
           <a-space style="width: 100%" align="center" :size="10">
-            <a-button type="default" @click="actionDrawerVisible = false">关闭</a-button>
-            <a-button v-if="!actionDrawerReadOnly" type="primary" @click="saveActionDraft">保存</a-button>
+            <a-button type="default" @click="actionDrawerVisible = false">{{ t("common.close") }}</a-button>
+            <a-button v-if="!actionDrawerReadOnly" type="primary" @click="saveActionDraft">{{ t("common.save") }}</a-button>
           </a-space>
         </a-space>
       </template>
@@ -183,6 +183,7 @@
 <script>
 import { computed, ref, watch } from "vue";
 import { message } from "ant-design-vue";
+import { useI18n } from "../i18n.js";
 
 export default {
   props: {
@@ -191,6 +192,7 @@ export default {
   },
   emits: ["update:selectedProjectId"],
   setup(props, { emit }) {
+    const { t } = useI18n();
     const projectsSafe = computed(() => (Array.isArray(props.projects) ? props.projects : []));
     const selectedProjectIdModel = computed({
       get: () => String(props.selectedProjectId || ""),
@@ -235,7 +237,7 @@ export default {
     function ensureProjectReady() {
       const pid = String(selectedProjectIdModel.value || "").trim();
       if (!pid) {
-        message.warning("请先选择项目。");
+        message.warning(t("common.selectProjectFirst"));
         return null;
       }
       return pid;
@@ -315,12 +317,12 @@ function removePlanItem(key) {
 
 function statusText(status) {
   const s = String(status || "");
-  if (s === "done") return "已完成";
-  if (s === "in_progress") return "进行中";
-  if (s === "blocked") return "阻塞";
-  if (s === "canceled") return "已取消";
-  if (s === "not_started") return "未开始";
-  return "未知";
+  if (s === "done") return t("status.done");
+  if (s === "in_progress") return t("status.in_progress");
+  if (s === "blocked") return t("status.blocked");
+  if (s === "canceled") return t("status.canceled");
+  if (s === "not_started") return t("status.not_started");
+  return t("status.unknown");
 }
 
 function statusColor(status) {
@@ -334,10 +336,10 @@ function statusColor(status) {
 
 function severityText(severity) {
   const s = String(severity || "").toLowerCase();
-  if (s === "high" || s === "p0" || s === "p1" || s === "critical") return "高";
-  if (s === "medium" || s === "p2") return "中";
-  if (s === "low" || s === "p3" || s === "p4") return "低";
-  return "未知";
+  if (s === "high" || s === "p0" || s === "p1" || s === "critical") return t("severity.high");
+  if (s === "medium" || s === "p2") return t("severity.medium");
+  if (s === "low" || s === "p3" || s === "p4") return t("severity.low");
+  return t("severity.unknown");
 }
 
 function severityColor(severity) {
@@ -380,7 +382,9 @@ const actionDraft = ref({
 });
 
 const actionDrawerReadOnly = computed(() => String(actionDrawerMode.value) === "detail");
-const actionDrawerTitle = computed(() => (actionDrawerReadOnly.value ? "行动项详情" : String(actionDrawerMode.value) === "create" ? "新增行动项" : "编辑行动项"));
+const actionDrawerTitle = computed(() =>
+  actionDrawerReadOnly.value ? t("plan.item.detail") : String(actionDrawerMode.value) === "create" ? t("plan.item.create") : t("plan.item.edit")
+);
 
 function normalizeDraft(d) {
   const src = d && typeof d === "object" ? d : {};
@@ -431,7 +435,7 @@ function saveActionDraft() {
   const mode = String(actionDrawerMode.value);
   const draft = normalizeDraft(actionDraft.value);
   if (!draft.id.trim()) {
-    message.warning("请填写编号。");
+    message.warning(t("plan.fillId"));
     return;
   }
   const existing = planItems.value.slice();
@@ -440,19 +444,19 @@ function saveActionDraft() {
     plan.value = { ...(plan.value || {}), items: existing };
     persistPlan();
     actionDrawerVisible.value = false;
-    message.success("已新增行动项");
+    message.success(t("plan.createdAction"));
     return;
   }
   const idx = existing.findIndex((x) => String(x.key) === String(draft.key));
   if (idx < 0) {
-    message.warning("未找到要更新的行动项。");
+    message.warning(t("plan.updateNotFound"));
     return;
   }
   existing.splice(idx, 1, { ...(existing[idx] || {}), ...draft, last_update_at: nowIso() });
   plan.value = { ...(plan.value || {}), items: existing };
   persistPlan();
   actionDrawerVisible.value = false;
-  message.success("已保存行动项");
+  message.success(t("plan.savedAction"));
 }
 
 const planSummaryText = computed(() => {
@@ -524,7 +528,7 @@ async function saveSnapshot() {
     const metricsUrl = `/work/outputs/${encodeURIComponent(pid)}/project-metrics-orid/metrics.json`;
     let base = await fetchJsonOptional(reportUrl);
     if (!base) base = await fetchJsonOptional(metricsUrl);
-    if (!base) message.info("未找到度量结果/改进报告，本次快照仅保存行动计划的进度概览。");
+    if (!base) message.info(t("plan.snapshotNoReport"));
     const metrics = extractKeyMetrics(base);
     const items = planItems.value || [];
     const snapshot = {
@@ -539,7 +543,7 @@ async function saveSnapshot() {
     };
     improvements.value = (improvements.value || []).concat([snapshot]);
     persistHistory();
-    message.success("已保存快照");
+    message.success(t("plan.savedSnapshot"));
   } catch (e) {
     errorText.value = e && e.message ? e.message : String(e);
   } finally {
@@ -548,6 +552,7 @@ async function saveSnapshot() {
 }
 
     return {
+      t,
       projectsSafe,
       selectedProjectIdModel,
       projectLabel,
