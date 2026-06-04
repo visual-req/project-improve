@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="670" viewBox="0 0 1200 670" role="img" aria-label="Scrum 框架图：中间为迭代横轴，上方为工件底部对齐，下方为活动（Planning/Review/Retrospective），并留出中间迭代循环区域">
+  <rect x="0" y="0" width="1200" height="670" fill="#ffffff"/>
+  <text x="600" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626" font-weight="600">Scrum框架</text>
+
+  <g transform="translate(0,100)">
+  <rect x="40" y="0" width="1120" height="540" rx="14" fill="#fafafa" stroke="#f0f0f0"/>
+
+  <path d="M90 250 L1110 250" stroke="#262626" stroke-width="12" stroke-linecap="round"/>
+
+  <text x="231" y="144" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3" font-weight="600">Product Backlog</text>
+  <rect x="209" y="152" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.8"/>
+  <rect x="209" y="158" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.9"/>
+  <rect x="209" y="164" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff"/>
+  <rect x="209" y="188" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.8"/>
+  <rect x="209" y="194" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.9"/>
+  <rect x="209" y="200" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff"/>
+  <rect x="209" y="222" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.8"/>
+  <rect x="209" y="228" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.9"/>
+  <rect x="209" y="234" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff"/>
+
+  <text x="464" y="160" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3" font-weight="600">Sprint Backlog</text>
+  <rect x="442" y="222" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.85"/>
+  <rect x="442" y="228" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.92"/>
+  <rect x="442" y="234" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff"/>
+
+  <path d="M637 250 A116 116 0 1 1 803 250" fill="none" stroke="#ffd591" stroke-width="12"/>
+  <g transform="rotate(-45 720 169)">
+    <g transform="translate(720 53) scale(2) translate(-720 -53)">
+      <path d="M720 53 L728 61 L728 45 Z" fill="#ffd591"/>
+    </g>
+  </g>
+  <text x="720" y="165" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad4e00" font-weight="600">迭代</text>
+  <text x="720" y="185" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">Sprint</text>
+
+  <circle cx="822" cy="67" r="50" fill="#ffffff" stroke="#91d5ff" stroke-width="3"/>
+  <text x="822" y="63" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="9" fill="#0050b3" font-weight="600">Daily</text>
+  <text x="822" y="77" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="9" fill="#0050b3" font-weight="600">Scrum</text>
+  <g transform="rotate(135 822 67)">
+    <path d="M822 17 L814 25 L814 9 Z" fill="#0050b3"/>
+  </g>
+
+  <rect x="857" y="186" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff"/>
+  <rect x="857" y="192" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.9"/>
+  <rect x="857" y="198" width="44" height="16" rx="8" fill="#e6f7ff" stroke="#91d5ff" opacity="0.8"/>
+  <text x="960" y="202" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3" font-weight="600">Increment</text>
+  <text x="960" y="224" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">交付增量（满足 DoD）</text>
+
+  <path d="M253 250 L442 250" stroke="#8c8c8c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M486 250 L637 250" stroke="#8c8c8c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M803 250 L857 250" stroke="#8c8c8c" stroke-width="3" stroke-linecap="round"/>
+
+  <rect x="350" y="350" width="240" height="64" rx="12" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="470" y="378" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626" font-weight="600">Sprint Planning</text>
+  <text x="470" y="400" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">目标 / DoD / 拆分</text>
+
+  <rect x="720" y="350" width="220" height="64" rx="12" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="830" y="378" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626" font-weight="600">Sprint Review</text>
+  <text x="830" y="400" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">验收 / 反馈</text>
+
+  <rect x="940" y="350" width="220" height="64" rx="12" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="1050" y="378" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626" font-weight="600">Retrospective</text>
+  <text x="1050" y="400" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">过程改进 / 拉升基线</text>
+
+  <path d="M470 250 L470 350" stroke="#bfbfbf" stroke-width="2" stroke-dasharray="6 6"/>
+  <path d="M955 250 L955 350" stroke="#bfbfbf" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <path d="M955 250 L830 342" stroke="#8c8c8c" stroke-width="2" stroke-dasharray="6 6"/>
+  <path d="M830 342 L836 330 L843 340 Z" fill="#8c8c8c"/>
+  <path d="M955 250 L1050 342" stroke="#8c8c8c" stroke-width="2" stroke-dasharray="6 6"/>
+  <path d="M1050 342 L1037 338 L1046 329 Z" fill="#8c8c8c"/>
+  </g>
+</svg>

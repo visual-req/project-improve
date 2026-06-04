@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="测试覆盖率与 Sonar 扫描：通过质量门禁发现阻碍点">
+  <rect x="0" y="0" width="960" height="360" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">
+    覆盖率与 Sonar：用质量门禁发现阻碍点（可测性/入口标准/自动化）
+  </text>
+
+  <rect x="60" y="70" width="400" height="250" rx="12" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="260" y="104" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#237804">测试覆盖率</text>
+  <rect x="100" y="130" width="320" height="18" rx="9" fill="#e8e8e8"/>
+  <rect x="100" y="130" width="120" height="18" rx="9" fill="#ff4d4f"/>
+  <text x="260" y="165" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">
+    长期不动 → 可测性差 / 架构耦合高 / 缺少可测接口
+  </text>
+  <rect x="100" y="182" width="320" height="94" rx="10" fill="#ffffff" stroke="#d9d9d9"/>
+  <text x="120" y="208" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">阻碍点定位</text>
+  <text x="120" y="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- 代码难测（依赖多/无分层）</text>
+  <text x="120" y="252" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- 缺少测试基座（mock/fixture）</text>
+  <text x="120" y="274" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- CI 太慢导致测试被跳过</text>
+
+  <rect x="500" y="70" width="400" height="250" rx="12" fill="#e6f7ff" stroke="#91d5ff"/>
+  <text x="700" y="104" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#0050b3">Sonar 扫描 / 质量门禁</text>
+  <rect x="540" y="130" width="320" height="18" rx="9" fill="#e8e8e8"/>
+  <rect x="540" y="130" width="220" height="18" rx="9" fill="#faad14"/>
+  <text x="700" y="165" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">
+    新增问题上升 → 入口标准弱 / 评审关注点偏移 / 自动化缺口
+  </text>
+  <rect x="540" y="182" width="320" height="94" rx="10" fill="#ffffff" stroke="#d9d9d9"/>
+  <text x="560" y="208" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">阻碍点定位</text>
+  <text x="560" y="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- PR 未绑定扫描结果</text>
+  <text x="560" y="252" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- DoD 缺失（无“无新增 blocker”）</text>
+  <text x="560" y="274" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- CI 不稳定（频繁失败/重试）</text>
+</svg>
+

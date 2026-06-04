@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260" role="img" aria-label="项目度量与ORID工作流">
+  <rect x="0" y="0" width="960" height="260" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">
+    数据源 → 度量计算 → ORID 分析 → 行动排期 → 报告与前端展示
+  </text>
+
+  <rect x="40" y="86" width="220" height="92" rx="12" fill="#e6f7ff" stroke="#91d5ff"/>
+  <text x="150" y="122" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#0050b3">数据获取</text>
+  <text x="150" y="146" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3">项目管理 / Bug / Git</text>
+
+  <rect x="286" y="86" width="180" height="92" rx="12" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="376" y="122" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#237804">指标计算</text>
+  <text x="376" y="146" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#237804">口径/趋势/红黄绿</text>
+
+  <rect x="492" y="86" width="160" height="92" rx="12" fill="#fff7e6" stroke="#ffd591"/>
+  <text x="572" y="122" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#ad4e00">ORID 分析</text>
+  <text x="572" y="146" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad4e00">事实→感受→假设→决策</text>
+
+  <rect x="678" y="86" width="160" height="92" rx="12" fill="#fff1f0" stroke="#ffa39e"/>
+  <text x="758" y="122" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#a8071a">行动排期</text>
+  <text x="758" y="146" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">负责人/验收/依赖</text>
+
+  <path d="M260 132 L286 132" stroke="#8c8c8c" stroke-width="2"/>
+  <path d="M466 132 L492 132" stroke="#8c8c8c" stroke-width="2"/>
+  <path d="M652 132 L678 132" stroke="#8c8c8c" stroke-width="2"/>
+
+  <path d="M282 132 L272 126 L272 138 Z" fill="#8c8c8c"/>
+  <path d="M488 132 L478 126 L478 138 Z" fill="#8c8c8c"/>
+  <path d="M674 132 L664 126 L664 138 Z" fill="#8c8c8c"/>
+
+  <rect x="286" y="194" width="552" height="40" rx="10" fill="#fafafa" stroke="#f0f0f0"/>
+  <text x="562" y="219" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">
+    产物：work/outputs/&lt;project_id&gt;/project-metrics-orid/report.md + report.json（前端导入 report.json 展示）
+  </text>
+</svg>

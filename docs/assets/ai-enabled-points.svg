@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="704" viewBox="0 0 1280 704" role="img" aria-label="AI 赋能切入点：阶段垂直，切入点水平映射（非纯表格形态），包含项目管理切入点">
+  <rect x="0" y="0" width="1280" height="704" fill="#ffffff"/>
+  <text x="640" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">
+    AI 赋能切入点：阶段垂直 × 切入点水平映射
+  </text>
+
+  <rect x="40" y="70" width="1200" height="604" rx="14" fill="#fafafa" stroke="#f0f0f0"/>
+
+  <text x="70" y="102" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">
+    读法：每一行是一段生命周期阶段；同一行从左到右是该阶段可落地的 AI 切入点（更像“工作台”，而不是表格）。
+  </text>
+
+  <rect x="70" y="110" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="122" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="143" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">需求/计划</text>
+  <rect x="270" y="121" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="143" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">纪要→用户故事/验收</text>
+  <rect x="500" y="121" width="210" height="34" rx="10" fill="#fff7e6" stroke="#ffd591"/><text x="605" y="143" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">范围/依赖检查</text>
+  <rect x="730" y="121" width="210" height="34" rx="10" fill="#f9f0ff" stroke="#d3adf7"/><text x="835" y="143" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#531dab">拆分/估算辅助</text>
+  <rect x="960" y="121" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="1065" y="143" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">计划偏差预警</text>
+
+  <rect x="70" y="174" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="186" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="207" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">设计</text>
+  <rect x="270" y="185" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="207" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">ADR/契约结构化</text>
+  <rect x="500" y="185" width="210" height="34" rx="10" fill="#fff7e6" stroke="#ffd591"/><text x="605" y="207" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">NFR 缺口提示</text>
+  <rect x="730" y="185" width="210" height="34" rx="10" fill="#f9f0ff" stroke="#d3adf7"/><text x="835" y="207" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#531dab">组件图/序列图草稿</text>
+  <rect x="960" y="185" width="210" height="34" rx="10" fill="#fff1f0" stroke="#ffa39e"/><text x="1065" y="207" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">设计检查点建议</text>
+
+  <rect x="70" y="238" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="250" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="271" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">编码/重构</text>
+  <rect x="270" y="249" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="271" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">PR 摘要/文档同步</text>
+  <rect x="500" y="249" width="210" height="34" rx="10" fill="#fff7e6" stroke="#ffd591"/><text x="605" y="271" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">坏味道/重构建议</text>
+  <rect x="730" y="249" width="210" height="34" rx="10" fill="#f9f0ff" stroke="#d3adf7"/><text x="835" y="271" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#531dab">补全/脚手架生成</text>
+  <rect x="960" y="249" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="1065" y="271" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">热点/复杂度聚类</text>
+
+  <rect x="70" y="302" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="314" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="335" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">评审/CI</text>
+  <rect x="270" y="313" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="335" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">用例结构化/摘要</text>
+  <rect x="500" y="313" width="210" height="34" rx="10" fill="#fff1f0" stroke="#ffa39e"/><text x="605" y="335" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">门禁阈值/豁免提示</text>
+  <rect x="730" y="313" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="835" y="335" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">失败定位/聚类</text>
+  <rect x="960" y="313" width="210" height="34" rx="10" fill="#f9f0ff" stroke="#d3adf7"/><text x="1065" y="335" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#531dab">生成单测/测试数据</text>
+
+  <rect x="70" y="366" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="378" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="399" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">交付/发布</text>
+  <rect x="270" y="377" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="399" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">发布说明/影响清单</text>
+  <rect x="500" y="377" width="210" height="34" rx="10" fill="#fff7e6" stroke="#ffd591"/><text x="605" y="399" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">灰度/回滚校验</text>
+  <rect x="730" y="377" width="210" height="34" rx="10" fill="#fff1f0" stroke="#ffa39e"/><text x="835" y="399" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">放行风险说明</text>
+  <rect x="960" y="377" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="1065" y="399" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">变更失败率归因</text>
+
+  <rect x="70" y="430" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="442" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="463" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">运行/运维</text>
+  <rect x="270" y="441" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="463" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">告警/工单归类</text>
+  <rect x="500" y="441" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="605" y="463" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">异常检测/基线对比</text>
+  <rect x="730" y="441" width="210" height="34" rx="10" fill="#f9f0ff" stroke="#d3adf7"/><text x="835" y="463" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#531dab">排障步骤/Runbook</text>
+  <rect x="960" y="441" width="210" height="34" rx="10" fill="#ffffff" stroke="#d9d9d9"/><text x="1065" y="463" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">MTTR 分解</text>
+
+  <rect x="70" y="494" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="506" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="527" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">复盘/改进</text>
+  <rect x="270" y="505" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="527" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">复盘草稿/摘要</text>
+  <rect x="500" y="505" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="605" y="527" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">趋势/反常点</text>
+  <rect x="730" y="505" width="210" height="34" rx="10" fill="#ffffff" stroke="#d9d9d9"/><text x="835" y="527" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">ORID→行动项</text>
+  <rect x="960" y="505" width="210" height="34" rx="10" fill="#fff1f0" stroke="#ffa39e"/><text x="1065" y="527" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">基线固化</text>
+
+  <rect x="70" y="558" width="1130" height="56" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="90" y="570" width="160" height="32" rx="16" fill="#fafafa" stroke="#d9d9d9"/>
+  <text x="170" y="591" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">项目管理</text>
+  <rect x="270" y="569" width="210" height="34" rx="10" fill="#f6ffed" stroke="#b7eb8f"/><text x="375" y="591" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">项目计划自动更新</text>
+  <rect x="500" y="569" width="210" height="34" rx="10" fill="#fff1f0" stroke="#ffa39e"/><text x="605" y="591" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">QA 检查点/抽样</text>
+  <rect x="730" y="569" width="210" height="34" rx="10" fill="#fff7e6" stroke="#ffd591"/><text x="835" y="591" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">风险与阻碍字段化</text>
+  <rect x="960" y="569" width="210" height="34" rx="10" fill="#e6f7ff" stroke="#91d5ff"/><text x="1065" y="591" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">行动项跟踪/效果对比</text>
+
+  <rect x="70" y="630" width="1130" height="34" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <rect x="84" y="638" width="14" height="14" rx="4" fill="#f6ffed" stroke="#b7eb8f"/><text x="106" y="650" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">结构化</text>
+  <rect x="170" y="638" width="14" height="14" rx="4" fill="#fff7e6" stroke="#ffd591"/><text x="192" y="650" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">风险提示</text>
+  <rect x="270" y="638" width="14" height="14" rx="4" fill="#f9f0ff" stroke="#d3adf7"/><text x="292" y="650" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">生成/自动化</text>
+  <rect x="380" y="638" width="14" height="14" rx="4" fill="#fff1f0" stroke="#ffa39e"/><text x="402" y="650" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">门禁/放行</text>
+  <rect x="490" y="638" width="14" height="14" rx="4" fill="#e6f7ff" stroke="#91d5ff"/><text x="512" y="650" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">洞察/归因</text>
+  <rect x="590" y="638" width="14" height="14" rx="4" fill="#ffffff" stroke="#d9d9d9"/><text x="612" y="650" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">决策/复盘</text>
+</svg>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>项目ORID持续改进</title>
+    <link rel="icon" href="/frontend/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="https://unpkg.com/ant-design-vue@3.2.20/dist/antd.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/advancedFormat.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/customParseFormat.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/localeData.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/quarterOfYear.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/weekOfYear.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/weekYear.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/plugin/weekday.js"></script>
+    <script src="https://unpkg.com/ant-design-vue@3.2.20/dist/antd.min.js"></script>
+    <script src="https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script type="module">
+      import * as SFC from "https://unpkg.com/@vue/compiler-sfc@3.2.47/dist/compiler-sfc.esm-browser.js";
+      const Vue = window.Vue;
+
+      const moduleCache = new Map();
+
+      function hashId(input) {
+        const s = String(input || "");
+        let h = 2166136261;
+        for (let i = 0; i < s.length; i++) {
+          h ^= s.charCodeAt(i);
+          h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24);
+        }
+        return "sfc_" + (h >>> 0).toString(16);
+      }
+
+      function injectStyle(id, css) {
+        if (!css) return;
+        const elId = "style:" + id;
+        if (document.getElementById(elId)) return;
+        const style = document.createElement("style");
+        style.id = elId;
+        style.textContent = css;
+        document.head.appendChild(style);
+      }
+
+      function rewriteImportsToRuntime(code, basePath) {
+        function normalizeNamedImports(spec) {
+          const inner = spec.slice(1, -1);
+          const parts = inner
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean)
+            .map((s) => {
+              const m = s.match(/^(.+?)\s+as\s+(.+?)$/);
+              if (!m) return s;
+              return `${m[1].trim()}: ${m[2].trim()}`;
+            });
+          return `{ ${parts.join(", ")} }`;
+        }
+
+        const lines = code.split("\n");
+        const out = [];
+        for (const line of lines) {
+          const m = line.match(/^\s*import\s+(.+?)\s+from\s+["'](.+?)["']\s*;?\s*$/);
+          if (!m) {
+            out.push(line);
+            continue;
+          }
+          const spec = m[1].trim();
+          const src = m[2].trim();
+
+          if (src === "vue") {
+            if (spec.startsWith("{") && spec.endsWith("}")) {
+              out.push(`const ${normalizeNamedImports(spec)} = Vue;`);
+            } else {
+              out.push(`const ${spec} = Vue;`);
+            }
+            continue;
+          }
+          if (src === "ant-design-vue") {
+            if (spec.startsWith("{") && spec.endsWith("}")) {
+              out.push(`const ${normalizeNamedImports(spec)} = antd;`);
+            } else {
+              out.push(`const ${spec} = antd;`);
+            }
+            continue;
+          }
+          if (src === "js-yaml") {
+            if (spec.startsWith("{") && spec.endsWith("}")) {
+              out.push(`const ${normalizeNamedImports(spec)} = jsyaml;`);
+            } else {
+              out.push(`const ${spec} = jsyaml;`);
+            }
+            continue;
+          }
+
+          if (src.endsWith(".vue")) {
+            const abs = new URL(src, basePath).pathname;
+            if (spec.startsWith("{") && spec.endsWith("}")) {
+              out.push(`const __m = await __importVue(${JSON.stringify(abs)}); const ${spec} = __m;`);
+            } else {
+              out.push(`const ${spec} = (await __importVue(${JSON.stringify(abs)})).default;`);
+            }
+            continue;
+          }
+
+          const abs = new URL(src, basePath).href;
+          out.push(`const ${spec} = (await import(${JSON.stringify(abs)})).default || (await import(${JSON.stringify(abs)}));`);
+        }
+        return out.join("\n");
+      }
+
+      async function __importVue(pathname) {
+        const path = String(pathname || "");
+        if (moduleCache.has(path)) return moduleCache.get(path);
+        const p = (async () => {
+          const res = await fetch(path, { cache: "no-store" });
+          if (!res.ok) throw new Error(`加载失败：${path}（${res.status}）`);
+          const source = await res.text();
+          const id = hashId(path);
+          const { descriptor } = SFC.parse(source, { filename: path });
+          const basePath = new URL(path, window.location.origin + "/").href;
+
+          if (descriptor.styles && descriptor.styles.length) {
+            for (let i = 0; i < descriptor.styles.length; i++) {
+              const s = descriptor.styles[i];
+              const css = SFC.compileStyle({ source: s.content, filename: path, id, scoped: !!s.scoped }).code;
+              injectStyle(`${id}:${i}`, css);
+            }
+          }
+
+          let scriptCode = "const __sfc__ = {};";
+          if (descriptor.script || descriptor.scriptSetup) {
+            const compiled = SFC.compileScript(descriptor, { id });
+            scriptCode = SFC.rewriteDefault(compiled.content, "__sfc__", ["script", "scriptSetup"]);
+          }
+
+          let tplCode = "";
+          if (descriptor.template) {
+            const tpl = SFC.compileTemplate({ source: descriptor.template.content, filename: path, id });
+            tplCode = `${rewriteImportsToRuntime(tpl.code, basePath)}\n__sfc__.render = render;`;
+          }
+
+          const combined = `
+            const Vue = window.__VUE__;
+            const antd = window.antd;
+            const jsyaml = window.jsyaml;
+            const __importVue = window.__importVue;
+            ${rewriteImportsToRuntime(scriptCode, basePath)}
+            ${tplCode}
+            export default __sfc__;
+          `;
+          const blob = new Blob([combined], { type: "text/javascript" });
+          const url = URL.createObjectURL(blob);
+          return import(url);
+        })();
+        moduleCache.set(path, p);
+        return p;
+      }
+
+      window.__VUE__ = Vue;
+      window.__importVue = __importVue;
+
+      const App = (await __importVue("/frontend/src/App.vue")).default;
+      Vue.createApp(App).use(window.antd).mount("#app");
+    </script>
+  </body>
+</html>

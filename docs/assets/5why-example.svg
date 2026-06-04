@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="640" viewBox="0 0 1100 640">
+  <defs>
+    <style>
+      .title { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .text { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .muted { font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #595959; }
+      .box { fill: #ffffff; stroke: #d9d9d9; stroke-width: 1; }
+      .bad { fill: #fff1f0; stroke: #ffccc7; }
+      .good { fill: #f6ffed; stroke: #b7eb8f; }
+      .mid { fill: #e6f4ff; stroke: #91caff; }
+      .arrow { stroke: #8c8c8c; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { stroke-dasharray: 6 6; }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8c8c8c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="640" fill="#ffffff"/>
+  <text x="24" y="42" class="title">5 Whys 示例：代码评审无效（为什么不能机械追问）</text>
+  <text x="24" y="70" class="muted">本例强调：真实根因是“代码复杂度过高”，它会放大理解偏差与业务不熟悉带来的评审失效。机械的单链追问容易跑偏。</text>
+
+  <rect x="24" y="100" width="520" height="500" rx="14" class="box bad"/>
+  <text x="44" y="132" class="text">机械 5 Whys（单链条，容易误导）</text>
+  <text x="44" y="158" class="muted">现象：代码评审无效（缺陷流入、返工多、变更风险大）</text>
+
+  <rect x="64" y="190" width="440" height="56" rx="10" class="box"/>
+  <text x="84" y="224" class="text">Why 1：评审发现不了问题</text>
+
+  <path d="M284,246 L284,270" class="arrow" marker-end="url(#arrowHead)"/>
+  <rect x="64" y="272" width="440" height="56" rx="10" class="box"/>
+  <text x="84" y="306" class="text">Why 2：评审者只看格式/表面</text>
+
+  <path d="M284,328 L284,352" class="arrow" marker-end="url(#arrowHead)"/>
+  <rect x="64" y="354" width="440" height="56" rx="10" class="box"/>
+  <text x="84" y="388" class="text">Why 3：评审时间不足</text>
+
+  <path d="M284,410 L284,434" class="arrow" marker-end="url(#arrowHead)"/>
+  <rect x="64" y="436" width="440" height="56" rx="10" class="box"/>
+  <text x="84" y="470" class="text">Why 4：大家太忙/任务太多</text>
+
+  <path d="M284,492 L284,516" class="arrow" marker-end="url(#arrowHead)"/>
+  <rect x="64" y="518" width="440" height="56" rx="10" class="box"/>
+  <text x="84" y="552" class="text">Why 5：团队能力不足 → “加强培训/更认真”</text>
+
+  <text x="44" y="592" class="muted">问题：把复杂系统问题简化为单一原因，行动落在个人层面，难以持续。</text>
+
+  <rect x="556" y="100" width="520" height="500" rx="14" class="box good"/>
+  <text x="576" y="132" class="text">原因树 / 多路径分析（更贴近真实）</text>
+  <text x="576" y="158" class="muted">从同一现象分叉：复杂度、理解与上下文、业务熟悉度、工具与信息（其中复杂度是核心根因）</text>
+
+  <rect x="596" y="190" width="440" height="56" rx="10" class="box mid"/>
+  <text x="616" y="224" class="text">现象：代码评审无效</text>
+
+  <path d="M816,246 C760,290 710,315 650,340" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M816,246 C860,290 910,315 980,340" class="arrow dash" marker-end="url(#arrowHead)"/>
+  <path d="M816,246 C780,320 770,355 760,392" class="arrow dash" marker-end="url(#arrowHead)"/>
+
+  <rect x="586" y="342" width="300" height="64" rx="10" class="box"/>
+  <text x="606" y="370" class="text">核心根因：代码复杂度过高</text>
+  <text x="606" y="392" class="muted">- 抽象层级深 / 耦合高 / 认知负荷大</text>
+
+  <rect x="900" y="342" width="176" height="64" rx="10" class="box"/>
+  <text x="920" y="370" class="text">放大因素：业务不熟悉</text>
+  <text x="920" y="392" class="muted">- 难以判断业务正确性</text>
+
+  <rect x="700" y="400" width="320" height="78" rx="10" class="box"/>
+  <text x="720" y="428" class="text">放大因素：理解/上下文不足</text>
+  <text x="720" y="450" class="muted">- 缺少设计说明/上下文，评审者理解不到位</text>
+  <text x="720" y="470" class="muted">- 影响面不清（风险提示/可观测性不足）</text>
+
+  <path d="M736,406 C700,452 660,485 630,520" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M988,406 C980,452 950,485 920,520" class="arrow dash" marker-end="url(#arrowHead)"/>
+  <path d="M860,478 C840,510 820,530 800,548" class="arrow dash" marker-end="url(#arrowHead)"/>
+
+  <rect x="566" y="520" width="280" height="68" rx="10" class="box"/>
+  <text x="586" y="548" class="text">可行动杠杆点（示例）</text>
+  <text x="586" y="570" class="muted">- 降低复杂度：拆分模块/降耦合/补设计说明</text>
+
+  <rect x="860" y="520" width="220" height="68" rx="10" class="box"/>
+  <text x="880" y="548" class="text">可验证杠杆点（示例）</text>
+  <text x="880" y="570" class="muted">- 业务专家参与评审 + 变更风险清单</text>
+</svg>

@@ -1,0 +1,96 @@
+workspace:
+  inputs_dir: "work/inputs"
+  outputs_dir: "work/outputs"
+  meta_dir: "work/meta"
+
+active_project_id: "proj-123"
+
+projects:
+  - id: "proj-123"
+    name: "your-project"
+    slug_en: "your-project"
+    timezone: "Asia/Shanghai"
+    iteration:
+      type: "sprint"
+      length_days: 14
+
+    data_source:
+      system: "jira"
+      base_url: "https://your-jira-domain"
+      auth:
+        type: "bearer"
+        token_env: "PM_API_TOKEN"
+      query:
+        project_key: "ABC"
+        board_id: "123"
+        issue_types: ["Story", "Bug", "Task"]
+        done_statuses: ["Done", "Closed"]
+
+    bug_source:
+      system: "jira"
+      base_url: "https://your-jira-domain"
+      auth:
+        type: "bearer"
+        token_env: "BUG_API_TOKEN"
+      query:
+        project_key: "ABC"
+        issue_types: ["Bug"]
+        escaped_defect_labels: ["production", "escaped"]
+        severity_field: "priority.name"
+
+    git_source:
+      system: "github"
+      base_url: "https://api.github.com"
+      auth:
+        type: "token"
+        token_env: "GIT_API_TOKEN"
+      repo:
+        owner: "your-org"
+        name: "your-repo"
+        default_branch: "main"
+      query:
+        since_days: 30
+        include: ["commits", "pull_requests", "reviews"]
+
+    ci_source:
+      system: "github_actions"
+      base_url: "https://api.github.com"
+      auth:
+        type: "token"
+        token_env: "CI_API_TOKEN"
+      repo:
+        owner: "your-org"
+        name: "your-repo"
+      query:
+        since_days: 30
+      pipelines:
+        build_workflow: "ci.yml"
+        code_scan_workflow: "code-scan.yml"
+
+    field_mapping:
+      created_at: "created"
+      updated_at: "updated"
+      status: "status.name"
+      status_history: "changelog.histories"
+      assignee: "fields.assignee.displayName"
+      issue_type: "fields.issuetype.name"
+      story_points: "customfield_10016"
+      labels: "fields.labels"
+      blocked_flag: "fields.flagged"
+      resolution_date: "fields.resolutiondate"
+
+    metrics:
+      window_days: 30
+      wip_statuses: ["In Progress", "Review", "Testing"]
+      percentiles: [50, 75, 95]
+      targets:
+        lead_time_p50_days: 7
+        cycle_time_p50_days: 3
+        wip_limit: 10
+        escaped_defects_max: 2
+        reopen_rate_max: 0.1
+        ci_success_rate_min: 0.9
+        code_scan_pass_rate_min: 0.95
+
+    output:
+      report_subdir: "project-metrics-orid"

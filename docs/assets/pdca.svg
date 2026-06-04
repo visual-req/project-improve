@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420">
+  <defs>
+    <style>
+      .title { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .text { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .muted { font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #595959; }
+      .box { fill: #ffffff; stroke: #d9d9d9; stroke-width: 1; }
+      .arrow { stroke: #8c8c8c; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .p { fill: #e6f4ff; stroke: #91caff; }
+      .d { fill: #f6ffed; stroke: #b7eb8f; }
+      .c { fill: #fff7e6; stroke: #ffd591; }
+      .a { fill: #fff1f0; stroke: #ffccc7; }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8c8c8c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="420" fill="#ffffff"/>
+  <text x="24" y="42" class="title">PDCA 持续改进闭环</text>
+  <text x="24" y="70" class="muted">把“发现问题”变成“可验证的过程改进”：定义目标 → 实施变更 → 数据验证 → 固化或修正</text>
+
+  <rect x="90" y="110" width="320" height="110" rx="14" class="box p"/>
+  <text x="120" y="145" class="text">P（Plan）计划</text>
+  <text x="120" y="172" class="muted">- 明确问题与目标（指标/阈值/时间窗）</text>
+  <text x="120" y="193" class="muted">- 制定改进方案与验收标准</text>
+  <text x="120" y="214" class="muted">- 标注风险/依赖/数据缺口</text>
+
+  <rect x="570" y="110" width="320" height="110" rx="14" class="box d"/>
+  <text x="600" y="145" class="text">D（Do）执行</text>
+  <text x="600" y="172" class="muted">- 最小可行变更（流程/工具/自动化）</text>
+  <text x="600" y="193" class="muted">- 记录实际执行与偏差</text>
+  <text x="600" y="214" class="muted">- 保持节奏与可回滚</text>
+
+  <rect x="570" y="250" width="320" height="110" rx="14" class="box c"/>
+  <text x="600" y="285" class="text">C（Check）检查</text>
+  <text x="600" y="312" class="muted">- 对比窗口，验证指标变化</text>
+  <text x="600" y="333" class="muted">- 抽样审计/过程检查点</text>
+  <text x="600" y="354" class="muted">- 识别副作用与新风险</text>
+
+  <rect x="90" y="250" width="320" height="110" rx="14" class="box a"/>
+  <text x="120" y="285" class="text">A（Act）处理/改进</text>
+  <text x="120" y="312" class="muted">- 固化有效做法（标准/制度/自动化）</text>
+  <text x="120" y="333" class="muted">- 无效则回到 Plan 修正假设</text>
+  <text x="120" y="354" class="muted">- 把学习沉淀为可复用资产</text>
+
+  <path d="M410,165 C470,165 510,165 570,165" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M730,220 C730,230 730,240 730,250" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M570,305 C510,305 470,305 410,305" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M250,250 C250,240 250,230 250,220" class="arrow" marker-end="url(#arrowHead)"/>
+</svg>

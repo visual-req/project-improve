@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-label="度量指标按阶段与类型划分">
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">
+    度量指标按阶段（横轴）与类型（纵轴）划分
+  </text>
+
+  <rect x="160" y="70" width="180" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+  <rect x="340" y="70" width="180" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+  <rect x="520" y="70" width="180" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+  <rect x="700" y="70" width="220" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+
+  <text x="250" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">需求/计划</text>
+  <text x="430" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">开发/评审</text>
+  <text x="610" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">测试/交付</text>
+  <text x="810" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">线上/运行</text>
+
+  <rect x="40" y="114" width="120" height="94" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="100" y="142" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#237804">流动</text>
+  <text x="100" y="162" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">交付与流动</text>
+
+  <rect x="40" y="208" width="120" height="94" fill="#e6f7ff" stroke="#91d5ff"/>
+  <text x="100" y="236" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3">计划</text>
+  <text x="100" y="256" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">计划可靠性</text>
+
+  <rect x="40" y="302" width="120" height="94" fill="#fff7e6" stroke="#ffd591"/>
+  <text x="100" y="330" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad4e00">质量</text>
+  <text x="100" y="350" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">缺陷与回归</text>
+
+  <rect x="40" y="396" width="120" height="94" fill="#fff1f0" stroke="#ffa39e"/>
+  <text x="100" y="424" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">工程效率</text>
+  <text x="100" y="444" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">研发效率</text>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="114" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="138">吞吐量</text>
+    <text x="170" y="158">在制 / 老化在制</text>
+    <text x="170" y="178">交付周期</text>
+
+    <rect x="340" y="114" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="138">处理周期</text>
+    <text x="350" y="158">评审等待时间</text>
+    <text x="350" y="178">合并请求周期（创建→合并）</text>
+
+    <rect x="520" y="114" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="138">部署/发布频率</text>
+    <text x="530" y="158">交付批量（可选）</text>
+
+    <rect x="700" y="114" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="138">平均修复时间（可选）</text>
+    <text x="710" y="158">变更失败率（可选）</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="208" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="232">承诺达成率</text>
+    <text x="170" y="252">范围变更</text>
+    <text x="170" y="272">迭代吞吐/完成率</text>
+    <text x="170" y="292">迭代结转率（可选）</text>
+
+    <rect x="340" y="208" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="232">在制上限执行率（可选）</text>
+    <text x="350" y="252">阻塞占比（可选）</text>
+
+    <rect x="520" y="208" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="232">按期交付率（可选）</text>
+    <text x="530" y="252">返工比例（可选）</text>
+
+    <rect x="700" y="208" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="232">线上承诺偏差（可选）</text>
+    <text x="710" y="252">服务等级协议（可选）</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="302" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="326">需求缺陷情况</text>
+    <text x="170" y="346">缺陷率</text>
+    <text x="170" y="366">—</text>
+
+    <rect x="340" y="302" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="326">代码缺陷情况</text>
+    <text x="350" y="346">评审缺陷（可选）</text>
+    <text x="350" y="366">测试阻塞（可选）</text>
+
+    <rect x="520" y="302" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="326">自动化测试覆盖率</text>
+    <text x="530" y="346">回归缺陷（可选）</text>
+    <text x="530" y="366">验收失败率（可选）</text>
+    <text x="530" y="386">重开率</text>
+
+    <rect x="700" y="302" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="326">缺陷逃逸率</text>
+    <text x="710" y="346">生产缺陷严重度（可选）</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="396" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="420">提交频率（可选）</text>
+    <text x="170" y="440">关联率（合并请求 ↔ 需求/缺陷）</text>
+
+    <rect x="340" y="396" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="420">合并请求周期</text>
+    <text x="350" y="440">评审等待时间</text>
+    <text x="350" y="460">变更规模</text>
+
+    <rect x="520" y="396" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="420">集成频率</text>
+    <text x="530" y="440">持续集成成功率</text>
+    <text x="530" y="460">代码扫描通过率</text>
+
+    <rect x="700" y="396" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="420">值班负载（可选）</text>
+    <text x="710" y="440">紧急修复占比（可选）</text>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420" role="img" aria-label="效率区域跃迁示意：从低协作低产出跃迁到高协作高产出">
+  <rect x="0" y="0" width="1000" height="420" fill="#ffffff"/>
+
+  <rect x="40" y="40" width="920" height="340" rx="14" fill="#fafafa" stroke="#f0f0f0"/>
+
+  <path d="M120 340 L900 340" stroke="#262626" stroke-width="3" stroke-linecap="round"/>
+  <path d="M120 340 L120 100" stroke="#262626" stroke-width="3" stroke-linecap="round"/>
+
+  <text x="900" y="365" text-anchor="end" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">协作 / 反馈频率 ↑</text>
+  <text x="90" y="110" text-anchor="start" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">交付吞吐 / 功能产出 ↑</text>
+
+  <rect x="140" y="220" width="260" height="120" rx="16" fill="#fff1f0" stroke="#ffa39e"/>
+  <text x="270" y="246" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="13" fill="#a8071a" font-weight="600">低效区</text>
+  <text x="270" y="270" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">闷头开发 / 长周期 / 大 PR</text>
+  <text x="270" y="290" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">少求助 / 反馈稀疏</text>
+  <text x="270" y="310" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">返工与等待隐性累积</text>
+
+  <rect x="430" y="180" width="260" height="160" rx="16" fill="#fffbe6" stroke="#ffe58f"/>
+  <text x="560" y="206" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="13" fill="#ad6800" font-weight="600">过渡区</text>
+  <text x="560" y="230" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad6800">开始拆小任务 / 更频繁合并</text>
+  <text x="560" y="250" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad6800">结对 / 求助 / 快速澄清</text>
+  <text x="560" y="270" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad6800">AI 做即时反馈（需人工确认）</text>
+  <text x="560" y="290" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad6800">WIP 下降，Lead Time 收敛</text>
+
+  <rect x="720" y="120" width="220" height="220" rx="16" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="830" y="146" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="13" fill="#237804" font-weight="600">高效区</text>
+  <text x="830" y="170" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">小步提交 / 小批量交付</text>
+  <text x="830" y="190" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">频繁反馈 / 快速评审</text>
+  <text x="830" y="210" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">DoD 门禁 + 自动化测试</text>
+  <text x="830" y="230" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">复用优先，返工显著降低</text>
+
+  <path d="M270 220 C360 190, 430 180, 520 170 C610 160, 690 145, 760 135" fill="none" stroke="#262626" stroke-width="3"/>
+  <path d="M760 135 L748 130 L752 146 Z" fill="#262626"/>
+
+  <rect x="310" y="170" width="120" height="28" rx="10" fill="#ffffff" stroke="#d9d9d9"/>
+  <text x="370" y="189" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">拆小任务</text>
+
+  <rect x="455" y="150" width="150" height="28" rx="10" fill="#ffffff" stroke="#d9d9d9"/>
+  <text x="530" y="169" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">结对 / 求助</text>
+
+  <rect x="615" y="132" width="160" height="28" rx="10" fill="#ffffff" stroke="#d9d9d9"/>
+  <text x="695" y="151" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">频繁 PR + CI</text>
+
+  <rect x="140" y="64" width="820" height="46" rx="12" fill="#ffffff" stroke="#d9d9d9"/>
+  <text x="550" y="92" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626" font-weight="600">发现线索（用于诊断系统，而非个体绩效）</text>
+  <text x="550" y="108" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">吞吐明显偏低 + PR 过大/过少 + 评审参与低 + 节奏断点 + 返工增加</text>
+</svg>

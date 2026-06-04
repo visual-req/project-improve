@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="燃尽图：通过偏离发现阻碍点">
+  <rect x="0" y="0" width="960" height="360" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">
+    燃尽图：用偏离发现阻碍点（平坦/上升/末期陡降）
+  </text>
+
+  <rect x="70" y="70" width="820" height="230" rx="10" fill="#fafafa" stroke="#f0f0f0"/>
+
+  <path d="M120 270 L120 110" stroke="#bfbfbf" stroke-width="2"/>
+  <path d="M120 270 L850 270" stroke="#bfbfbf" stroke-width="2"/>
+
+  <text x="120" y="294" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Day 1</text>
+  <text x="250" y="294" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Day 3</text>
+  <text x="380" y="294" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Day 5</text>
+  <text x="510" y="294" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Day 7</text>
+  <text x="640" y="294" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Day 9</text>
+  <text x="820" y="294" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Day 12</text>
+
+  <text x="98" y="120" text-anchor="end" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">剩余工作</text>
+
+  <path d="M120 110 L820 270" stroke="#91d5ff" stroke-width="3" stroke-dasharray="8 6" fill="none"/>
+  <text x="820" y="98" text-anchor="end" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3">理想燃尽</text>
+
+  <path d="M120 120
+           L250 140
+           L330 155
+           L380 155
+           L420 155
+           L510 140
+           L640 160
+           L720 170
+           L820 270" stroke="#52c41a" stroke-width="3" fill="none"/>
+
+  <circle cx="380" cy="155" r="5" fill="#faad14"/>
+  <rect x="410" y="132" width="250" height="48" rx="8" fill="#fffbe6" stroke="#ffe58f"/>
+  <text x="425" y="152" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad6800">曲线平坦：几天不下降</text>
+  <text x="425" y="170" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad6800">阻碍：等待/依赖/环境/验收</text>
+
+  <circle cx="640" cy="160" r="5" fill="#ff4d4f"/>
+  <rect x="660" y="188" width="210" height="44" rx="8" fill="#fff1f0" stroke="#ffa39e"/>
+  <text x="675" y="208" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">突然上升：范围变更/返工</text>
+  <text x="675" y="226" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">阻碍：需求反复/缺陷回流</text>
+
+  <circle cx="820" cy="270" r="5" fill="#722ed1"/>
+  <rect x="520" y="236" width="300" height="44" rx="8" fill="#f9f0ff" stroke="#d3adf7"/>
+  <text x="535" y="256" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#531dab">末期陡降：在制堆积 + 批量验收</text>
+  <text x="535" y="274" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#531dab">阻碍：WIP过高/测试扎堆/发布受限</text>
+</svg>
+
