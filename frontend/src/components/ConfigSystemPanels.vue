@@ -1,186 +1,186 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
     <a-space wrap align="center">
-      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">项目</span>
+      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ t("common.project") }}</span>
       <a-select v-model:value="selectedProjectId" style="min-width: 320px">
         <a-select-option v-for="(p, idx) in projects" :key="String(p.id) + ':' + String(idx)" :value="String(p.id)">
-          {{ String(p.id) }} · {{ String(p.name || "") }}
+          {{ projectLabel(p, idx) }}
         </a-select-option>
       </a-select>
-      <a-button type="default" @click="openAddProject">添加项目</a-button>
-      <a-button type="primary" @click="exportProjectConfigYaml">保存并导出</a-button>
+      <a-button type="default" @click="openAddProject">{{ t("configSystem.action.addProject") }}</a-button>
+      <a-button type="primary" @click="exportProjectConfigYaml">{{ t("configSystem.action.saveAndExport") }}</a-button>
       <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ statusText }}</span>
     </a-space>
 
     <a-form layout="vertical">
-      <a-divider style="margin: 8px 0">项目</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.project") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="项目ID"><a-input v-model:value="projectConfig.project.id" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="时区"><a-input v-model:value="projectConfig.project.timezone" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.projectId')"><a-input v-model:value="projectConfig.project.id" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('projects.field.timezone')"><a-input v-model:value="projectConfig.project.timezone" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="项目名称"><a-input v-model:value="projectConfig.project.name" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="英文名（slug_en）"><a-input v-model:value="projectConfig.project.slug_en" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('projects.field.name')"><a-input v-model:value="projectConfig.project.name" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('projects.field.slug')"><a-input v-model:value="projectConfig.project.slug_en" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="迭代类型"><a-input v-model:value="projectConfig.project.iteration.type" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="迭代周期（天）"><a-input-number v-model:value="projectConfig.project.iteration.length_days" :min="1" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.iterationType')"><a-input v-model:value="projectConfig.project.iteration.type" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.iterationLengthDays')"><a-input-number v-model:value="projectConfig.project.iteration.length_days" :min="1" style="width: 100%" /></a-form-item></a-col>
       </a-row>
 
-      <a-divider style="margin: 8px 0">项目管理系统（data_source）</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.dataSource") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="系统类型"><a-input v-model:value="projectConfig.data_source.system" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.systemType')"><a-input v-model:value="projectConfig.data_source.system" /></a-form-item></a-col>
         <a-col :span="12"
-          ><a-form-item label="鉴权Token环境变量（token_env）"><a-input v-model:value="projectConfig.data_source.auth.token_env" /></a-form-item></a-col
+          ><a-form-item :label="t('configSystem.field.tokenEnv')"><a-input v-model:value="projectConfig.data_source.auth.token_env" /></a-form-item></a-col
         >
       </a-row>
-      <a-form-item label="服务地址（base_url）"><a-input v-model:value="projectConfig.data_source.base_url" /></a-form-item>
+      <a-form-item :label="t('configSystem.field.baseUrl')"><a-input v-model:value="projectConfig.data_source.base_url" /></a-form-item>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="鉴权方式（auth.type）"><a-input v-model:value="projectConfig.data_source.auth.type" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.authType')"><a-input v-model:value="projectConfig.data_source.auth.type" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="项目Key（project_key）"><a-input v-model:value="projectConfig.data_source.query.project_key" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="看板ID（board_id）"><a-input v-model:value="projectConfig.data_source.query.board_id" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.projectKey')"><a-input v-model:value="projectConfig.data_source.query.project_key" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.boardId')"><a-input v-model:value="projectConfig.data_source.query.board_id" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
         <a-col :span="12">
-          <a-form-item label="需求类型（issue_types）">
+          <a-form-item :label="t('configSystem.field.issueTypes')">
             <a-select v-model:value="dataIssueTypesModel" mode="tags" style="width: 100%" :token-separators="[',']" />
           </a-form-item>
         </a-col>
         <a-col :span="12">
-          <a-form-item label="完成状态集合（done_statuses）">
+          <a-form-item :label="t('configSystem.field.doneStatuses')">
             <a-select v-model:value="dataDoneStatusesModel" mode="tags" style="width: 100%" :token-separators="[',']" />
           </a-form-item>
         </a-col>
       </a-row>
 
-      <a-divider style="margin: 8px 0">缺陷系统（bug_source）</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.bugSource") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="系统类型"><a-input v-model:value="projectConfig.bug_source.system" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.systemType')"><a-input v-model:value="projectConfig.bug_source.system" /></a-form-item></a-col>
         <a-col :span="12"
-          ><a-form-item label="鉴权Token环境变量（token_env）"><a-input v-model:value="projectConfig.bug_source.auth.token_env" /></a-form-item></a-col
+          ><a-form-item :label="t('configSystem.field.tokenEnv')"><a-input v-model:value="projectConfig.bug_source.auth.token_env" /></a-form-item></a-col
         >
       </a-row>
-      <a-form-item label="服务地址（base_url）"><a-input v-model:value="projectConfig.bug_source.base_url" /></a-form-item>
+      <a-form-item :label="t('configSystem.field.baseUrl')"><a-input v-model:value="projectConfig.bug_source.base_url" /></a-form-item>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="鉴权方式（auth.type）"><a-input v-model:value="projectConfig.bug_source.auth.type" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="项目Key（project_key）"><a-input v-model:value="projectConfig.bug_source.query.project_key" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.authType')"><a-input v-model:value="projectConfig.bug_source.auth.type" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.projectKey')"><a-input v-model:value="projectConfig.bug_source.query.project_key" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
         <a-col :span="12">
-          <a-form-item label="缺陷类型（issue_types）">
+          <a-form-item :label="t('configSystem.field.bugIssueTypes')">
             <a-select v-model:value="bugIssueTypesModel" mode="tags" style="width: 100%" :token-separators="[',']" />
           </a-form-item>
         </a-col>
-        <a-col :span="12"><a-form-item label="严重级别字段（severity_field）"><a-input v-model:value="projectConfig.bug_source.query.severity_field" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.severityField')"><a-input v-model:value="projectConfig.bug_source.query.severity_field" /></a-form-item></a-col>
       </a-row>
-      <a-form-item label="线上逃逸标签（escaped_defect_labels）">
+      <a-form-item :label="t('configSystem.field.escapedDefectLabels')">
         <a-select v-model:value="bugEscapedLabelsModel" mode="tags" style="width: 100%" :token-separators="[',']" />
       </a-form-item>
 
-      <a-divider style="margin: 8px 0">代码仓库（git_source）</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.gitSource") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="系统类型"><a-input v-model:value="projectConfig.git_source.system" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.systemType')"><a-input v-model:value="projectConfig.git_source.system" /></a-form-item></a-col>
         <a-col :span="12"
-          ><a-form-item label="鉴权Token环境变量（token_env）"><a-input v-model:value="projectConfig.git_source.auth.token_env" /></a-form-item></a-col
+          ><a-form-item :label="t('configSystem.field.tokenEnv')"><a-input v-model:value="projectConfig.git_source.auth.token_env" /></a-form-item></a-col
         >
       </a-row>
-      <a-form-item label="API地址（base_url）"><a-input v-model:value="projectConfig.git_source.base_url" /></a-form-item>
+      <a-form-item :label="t('configSystem.field.apiBaseUrl')"><a-input v-model:value="projectConfig.git_source.base_url" /></a-form-item>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="仓库Owner（repo.owner）"><a-input v-model:value="projectConfig.git_source.repo.owner" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="仓库名称（repo.name）"><a-input v-model:value="projectConfig.git_source.repo.name" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.repoOwner')"><a-input v-model:value="projectConfig.git_source.repo.owner" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.repoName')"><a-input v-model:value="projectConfig.git_source.repo.name" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="鉴权方式（auth.type）"><a-input v-model:value="projectConfig.git_source.auth.type" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="默认分支（repo.default_branch）"><a-input v-model:value="projectConfig.git_source.repo.default_branch" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.authType')"><a-input v-model:value="projectConfig.git_source.auth.type" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.defaultBranch')"><a-input v-model:value="projectConfig.git_source.repo.default_branch" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="拉取时间窗（天）（query.since_days）"><a-input-number v-model:value="projectConfig.git_source.query.since_days" :min="1" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.sinceDays')"><a-input-number v-model:value="projectConfig.git_source.query.since_days" :min="1" style="width: 100%" /></a-form-item></a-col>
         <a-col :span="12">
-          <a-form-item label="拉取范围（query.include）">
+          <a-form-item :label="t('configSystem.field.gitInclude')">
             <a-select v-model:value="gitIncludeModel" mode="tags" style="width: 100%" :token-separators="[',']" />
           </a-form-item>
         </a-col>
       </a-row>
 
-      <a-divider style="margin: 8px 0">持续集成（ci_source）</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.ciSource") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="系统类型"><a-input v-model:value="projectConfig.ci_source.system" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.systemType')"><a-input v-model:value="projectConfig.ci_source.system" /></a-form-item></a-col>
         <a-col :span="12"
-          ><a-form-item label="鉴权Token环境变量（token_env）"><a-input v-model:value="projectConfig.ci_source.auth.token_env" /></a-form-item></a-col
+          ><a-form-item :label="t('configSystem.field.tokenEnv')"><a-input v-model:value="projectConfig.ci_source.auth.token_env" /></a-form-item></a-col
         >
       </a-row>
-      <a-form-item label="API地址（base_url）"><a-input v-model:value="projectConfig.ci_source.base_url" /></a-form-item>
+      <a-form-item :label="t('configSystem.field.apiBaseUrl')"><a-input v-model:value="projectConfig.ci_source.base_url" /></a-form-item>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="仓库Owner（repo.owner）"><a-input v-model:value="projectConfig.ci_source.repo.owner" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="仓库名称（repo.name）"><a-input v-model:value="projectConfig.ci_source.repo.name" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.repoOwner')"><a-input v-model:value="projectConfig.ci_source.repo.owner" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.repoName')"><a-input v-model:value="projectConfig.ci_source.repo.name" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="鉴权方式（auth.type）"><a-input v-model:value="projectConfig.ci_source.auth.type" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="拉取时间窗（天）（query.since_days）"><a-input-number v-model:value="projectConfig.ci_source.query.since_days" :min="1" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.authType')"><a-input v-model:value="projectConfig.ci_source.auth.type" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.sinceDays')"><a-input-number v-model:value="projectConfig.ci_source.query.since_days" :min="1" style="width: 100%" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
         <a-col :span="12"
-          ><a-form-item label="构建流水线（build_workflow）"><a-input v-model:value="projectConfig.ci_source.pipelines.build_workflow" /></a-form-item></a-col
+          ><a-form-item :label="t('configSystem.field.buildWorkflow')"><a-input v-model:value="projectConfig.ci_source.pipelines.build_workflow" /></a-form-item></a-col
         >
         <a-col :span="12"
-          ><a-form-item label="扫描流水线（code_scan_workflow）"><a-input v-model:value="projectConfig.ci_source.pipelines.code_scan_workflow" /></a-form-item></a-col
+          ><a-form-item :label="t('configSystem.field.codeScanWorkflow')"><a-input v-model:value="projectConfig.ci_source.pipelines.code_scan_workflow" /></a-form-item></a-col
         >
       </a-row>
 
-      <a-divider style="margin: 8px 0">度量计算参数（metrics）</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.metricsParams") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="统计窗口（天）（window_days）"><a-input-number v-model:value="projectConfig.metrics.window_days" :min="1" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.windowDays')"><a-input-number v-model:value="projectConfig.metrics.window_days" :min="1" style="width: 100%" /></a-form-item></a-col>
         <a-col :span="12">
-          <a-form-item label="分位数（percentiles）">
+          <a-form-item :label="t('configSystem.field.percentiles')">
             <a-select v-model:value="metricsPercentilesModel" mode="tags" style="width: 100%" :token-separators="[',']" />
           </a-form-item>
         </a-col>
       </a-row>
-      <a-form-item label="在制状态集合（wip_statuses）">
+      <a-form-item :label="t('configSystem.field.wipStatuses')">
         <a-select v-model:value="metricsWipStatusesModel" mode="tags" style="width: 100%" :token-separators="[',']" />
       </a-form-item>
-      <a-divider style="margin: 8px 0">目标阈值（metrics.targets）</a-divider>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.targets") }}</a-divider>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="交付周期p50目标（天）（lead_time_p50_days）"><a-input-number v-model:value="projectConfig.metrics.targets.lead_time_p50_days" :min="0" style="width: 100%" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="处理周期p50目标（天）（cycle_time_p50_days）"><a-input-number v-model:value="projectConfig.metrics.targets.cycle_time_p50_days" :min="0" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetLeadTimeP50')"><a-input-number v-model:value="projectConfig.metrics.targets.lead_time_p50_days" :min="0" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetCycleTimeP50')"><a-input-number v-model:value="projectConfig.metrics.targets.cycle_time_p50_days" :min="0" style="width: 100%" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="WIP上限（wip_limit）"><a-input-number v-model:value="projectConfig.metrics.targets.wip_limit" :min="0" style="width: 100%" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="逃逸缺陷数量上限（escaped_defects_max）"><a-input-number v-model:value="projectConfig.metrics.targets.escaped_defects_max" :min="0" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetWipLimit')"><a-input-number v-model:value="projectConfig.metrics.targets.wip_limit" :min="0" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetEscapedDefectsMax')"><a-input-number v-model:value="projectConfig.metrics.targets.escaped_defects_max" :min="0" style="width: 100%" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="重开率上限（reopen_rate_max）"><a-input-number v-model:value="projectConfig.metrics.targets.reopen_rate_max" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="缺陷率上限（bug_rate_max）"><a-input-number v-model:value="projectConfig.metrics.targets.bug_rate_max" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetReopenRateMax')"><a-input-number v-model:value="projectConfig.metrics.targets.reopen_rate_max" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetBugRateMax')"><a-input-number v-model:value="projectConfig.metrics.targets.bug_rate_max" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
       </a-row>
       <a-row :gutter="[12, 12]">
-        <a-col :span="12"><a-form-item label="CI成功率下限（ci_success_rate_min）"><a-input-number v-model:value="projectConfig.metrics.targets.ci_success_rate_min" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
-        <a-col :span="12"><a-form-item label="扫描通过率下限（code_scan_pass_rate_min）"><a-input-number v-model:value="projectConfig.metrics.targets.code_scan_pass_rate_min" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetCiSuccessRateMin')"><a-input-number v-model:value="projectConfig.metrics.targets.ci_success_rate_min" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
+        <a-col :span="12"><a-form-item :label="t('configSystem.field.targetCodeScanPassRateMin')"><a-input-number v-model:value="projectConfig.metrics.targets.code_scan_pass_rate_min" :min="0" :max="1" :step="0.01" style="width: 100%" /></a-form-item></a-col>
       </a-row>
 
-      <a-divider style="margin: 8px 0">输出（output）</a-divider>
-      <a-form-item label="报告输出目录名（report_subdir）"><a-input v-model:value="projectConfig.output.report_subdir" /></a-form-item>
+      <a-divider style="margin: 8px 0">{{ t("configSystem.section.output") }}</a-divider>
+      <a-form-item :label="t('configSystem.field.reportSubdir')"><a-input v-model:value="projectConfig.output.report_subdir" /></a-form-item>
     </a-form>
 
-    <a-drawer v-model:visible="addProjectVisible" title="添加项目" placement="right" :width="520">
+    <a-drawer v-model:visible="addProjectVisible" :title="t('configSystem.drawer.addProjectTitle')" placement="right" :width="520">
       <a-form layout="vertical">
         <a-alert v-if="addProjectError" type="error" show-icon :message="addProjectError" style="margin-bottom: 10px" />
-        <a-form-item label="项目 ID">
+        <a-form-item :label="t('projects.field.id')">
           <a-input v-model:value="addProjectDraft.id" />
         </a-form-item>
-        <a-form-item label="项目名称">
+        <a-form-item :label="t('projects.field.name')">
           <a-input v-model:value="addProjectDraft.name" />
         </a-form-item>
-        <a-form-item label="英文名（slug_en）">
+        <a-form-item :label="t('projects.field.slug')">
           <a-input v-model:value="addProjectDraft.slug_en" />
         </a-form-item>
-        <a-form-item label="时区">
+        <a-form-item :label="t('projects.field.timezone')">
           <a-select v-model:value="addProjectDraft.timezone" style="width: 100%" :options="timezoneOptions" />
         </a-form-item>
         <a-space>
-          <a-button type="default" @click="addProjectVisible = false">取消</a-button>
-          <a-button type="primary" @click="addProjectOk">添加</a-button>
+          <a-button type="default" @click="addProjectVisible = false">{{ t("common.cancel") }}</a-button>
+          <a-button type="primary" @click="addProjectOk">{{ t("common.create") }}</a-button>
         </a-space>
       </a-form>
     </a-drawer>
@@ -190,9 +190,11 @@
 <script>
 import { computed, ref, watch } from "vue";
 import { dump, load } from "js-yaml";
+import { useI18n } from "../i18n.js";
 
 export default {
   setup() {
+    const { t } = useI18n();
     function safeString(v) {
       return v === undefined || v === null ? "" : String(v);
     }
@@ -309,6 +311,12 @@ export default {
 
     const projectConfig = ref(defaultProjectConfig("example"));
 
+    function projectLabel(p, idx) {
+      const id = p && p.id !== undefined && p.id !== null ? String(p.id).trim() : "";
+      const name = p && p.name !== undefined && p.name !== null ? String(p.name).trim() : "";
+      return `${id || String(idx + 1)} · ${name || t("common.unnamed")}`;
+    }
+
     const dataIssueTypesModel = computed({
       get: () =>
         normalizeStringArray(projectConfig.value && projectConfig.value.data_source && projectConfig.value.data_source.query && projectConfig.value.data_source.query.issue_types),
@@ -393,7 +401,7 @@ export default {
       const pid = selectedProjectId.value || "example";
       const text = dump(projectConfig.value || {}, { lineWidth: 120 });
       downloadText("config.yaml", text, "text/yaml");
-      statusText.value = `已导出 config.yaml（放到 work/${pid}/meta/config.yaml）`;
+      statusText.value = t("configSystem.status.exported", { pid });
     }
 
     function openAddProject() {
@@ -405,7 +413,7 @@ export default {
     function addProjectOk() {
       const id = safeString(addProjectDraft.value.id).trim();
       if (!id) {
-        addProjectError.value = "项目 id 不能为空";
+        addProjectError.value = t("configSystem.error.projectIdRequired");
         return;
       }
       const p = { id, name: safeString(addProjectDraft.value.name).trim(), slug_en: safeString(addProjectDraft.value.slug_en).trim() };
@@ -418,16 +426,18 @@ export default {
       projectConfig.value.project.slug_en = p.slug_en;
       projectConfig.value.project.timezone = safeString(addProjectDraft.value.timezone || defaultTz) || defaultTz;
       addProjectVisible.value = false;
-      statusText.value = "已添加项目（列表仅在本次会话内，持久化请手工维护 work/meta/config.yaml）";
+      statusText.value = t("configSystem.status.addedProject");
     }
 
     watch(selectedProjectId, () => buildProjectConfig());
     loadProjectsRegistry().then(buildProjectConfig);
 
     return {
+      t,
       statusText,
       projects,
       selectedProjectId,
+      projectLabel,
       openAddProject,
       exportProjectConfigYaml,
       projectConfig,

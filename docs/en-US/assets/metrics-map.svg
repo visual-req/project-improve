@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-label="Metrics categorized by stage and type">
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">
+    Metrics categorized by stage (x-axis) and type (y-axis)
+  </text>
+
+  <rect x="160" y="70" width="180" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+  <rect x="340" y="70" width="180" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+  <rect x="520" y="70" width="180" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+  <rect x="700" y="70" width="220" height="44" fill="#fafafa" stroke="#f0f0f0"/>
+
+  <text x="250" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Plan</text>
+  <text x="430" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Dev/Review</text>
+  <text x="610" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Test/Delivery</text>
+  <text x="810" y="98" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">Run</text>
+
+  <rect x="40" y="114" width="120" height="94" fill="#f6ffed" stroke="#b7eb8f"/>
+  <text x="100" y="142" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#237804">Flow</text>
+  <text x="100" y="162" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">Delivery &amp; Flow</text>
+
+  <rect x="40" y="208" width="120" height="94" fill="#e6f7ff" stroke="#91d5ff"/>
+  <text x="100" y="236" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3">Plan</text>
+  <text x="100" y="256" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">Planning Reliability</text>
+
+  <rect x="40" y="302" width="120" height="94" fill="#fff7e6" stroke="#ffd591"/>
+  <text x="100" y="330" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad4e00">Quality</text>
+  <text x="100" y="350" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">Defects &amp; Regression</text>
+
+  <rect x="40" y="396" width="120" height="94" fill="#fff1f0" stroke="#ffa39e"/>
+  <text x="100" y="424" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">Engineering</text>
+  <text x="100" y="444" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">Dev Efficiency</text>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="114" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="138">Throughput</text>
+    <text x="170" y="158">WIP / Aging WIP</text>
+    <text x="170" y="178">Lead Time</text>
+
+    <rect x="340" y="114" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="138">Cycle Time</text>
+    <text x="350" y="158">Review Latency</text>
+    <text x="350" y="178">PR Lead Time (Created → Merged)</text>
+
+    <rect x="520" y="114" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="138">Deployment Frequency</text>
+    <text x="530" y="158">Delivery Batch Size (Optional)</text>
+
+    <rect x="700" y="114" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="138">MTTR (Optional)</text>
+    <text x="710" y="158">Change Failure Rate (Optional)</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="208" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="232">Commitment Reliability</text>
+    <text x="170" y="252">Scope Change</text>
+    <text x="170" y="272">Iteration Throughput / Completion</text>
+    <text x="170" y="292">Carryover Rate (Optional)</text>
+
+    <rect x="340" y="208" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="232">WIP Limit Adherence (Optional)</text>
+    <text x="350" y="252">Blocked Ratio (Optional)</text>
+
+    <rect x="520" y="208" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="232">On-time Delivery Rate (Optional)</text>
+    <text x="530" y="252">Rework Ratio (Optional)</text>
+
+    <rect x="700" y="208" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="232">Online Commitment Deviation (Optional)</text>
+    <text x="710" y="252">SLA (Optional)</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="302" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="326">Requirement Defects</text>
+    <text x="170" y="346">Bug Rate</text>
+    <text x="170" y="366">—</text>
+
+    <rect x="340" y="302" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="326">Code Defects</text>
+    <text x="350" y="346">Review Defects (Optional)</text>
+    <text x="350" y="366">Test Blockers (Optional)</text>
+
+    <rect x="520" y="302" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="326">Automated Test Coverage</text>
+    <text x="530" y="346">Regression Defects (Optional)</text>
+    <text x="530" y="366">Acceptance Fail Rate (Optional)</text>
+    <text x="530" y="386">Reopen Rate</text>
+
+    <rect x="700" y="302" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="326">Escaped Defect Rate</text>
+    <text x="710" y="346">Prod Defect Severity (Optional)</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#262626">
+    <rect x="160" y="396" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="170" y="420">Commit Frequency (Optional)</text>
+    <text x="170" y="440">PR ↔ Issue Link Rate</text>
+
+    <rect x="340" y="396" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="350" y="420">PR Lead Time</text>
+    <text x="350" y="440">Review Latency</text>
+    <text x="350" y="460">Change Size</text>
+
+    <rect x="520" y="396" width="180" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="530" y="420">CI Integration Frequency</text>
+    <text x="530" y="440">CI Success Rate</text>
+    <text x="530" y="460">Code Scan Pass Rate</text>
+
+    <rect x="700" y="396" width="220" height="94" fill="#ffffff" stroke="#f0f0f0"/>
+    <text x="710" y="420">On-call Load (Optional)</text>
+    <text x="710" y="440">Hotfix Ratio (Optional)</text>
+  </g>
+</svg>

@@ -4,7 +4,7 @@
       <div style="font-weight: 600">{{ title }}</div>
       <a-progress :percent="progress" :status="progress >= 100 ? 'success' : 'active'" />
       <div style="color: rgba(0, 0, 0, 0.65)">{{ tip }}</div>
-      <div v-if="logLatestUrl" style="color: rgba(0, 0, 0, 0.65); font-size: 12px">日志文件：{{ logLatestUrl }}</div>
+      <div v-if="logLatestUrl" style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ t("analysis.runModal.logFile", { url: logLatestUrl }) }}</div>
       <div
         style="
           border: 1px solid #f0f0f0;
@@ -18,10 +18,10 @@
           white-space: pre-wrap;
         "
       >
-        {{ logText || "（暂无日志）" }}
+        {{ logText || t("analysis.runModal.noLog") }}
       </div>
       <a-space>
-        <a-button type="default" @click="cancel">取消</a-button>
+        <a-button type="default" @click="cancel">{{ t("common.cancel") }}</a-button>
       </a-space>
     </a-space>
   </a-modal>
@@ -29,6 +29,7 @@
 
 <script>
 import { computed } from "vue";
+import { useI18n } from "../../i18n.js";
 
 export default {
   props: {
@@ -41,6 +42,7 @@ export default {
   },
   emits: ["update:visible", "cancel"],
   setup(props, { emit }) {
+    const { t } = useI18n();
     const visibleProxy = computed({
       get: () => !!props.visible,
       set: (v) => emit("update:visible", !!v)
@@ -48,7 +50,7 @@ export default {
     function cancel() {
       emit("cancel");
     }
-    return { visibleProxy, cancel };
+    return { t, visibleProxy, cancel };
   }
 };
 </script>

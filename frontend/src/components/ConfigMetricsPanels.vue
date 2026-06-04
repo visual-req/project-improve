@@ -1,41 +1,41 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
     <a-space wrap align="center">
-      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">项目</span>
+      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ t("common.project") }}</span>
       <a-select v-model:value="selectedProjectId" style="min-width: 320px">
         <a-select-option v-for="(p, idx) in projects" :key="String(p.id) + ':' + String(idx)" :value="String(p.id)">
           {{ String(p.id) }} · {{ String(p.name || "") }}
         </a-select-option>
       </a-select>
-      <a-button type="default" @click="setAllEnabled(true)">全选</a-button>
-      <a-button type="default" @click="setAllEnabled(false)">全不选</a-button>
-      <a-button type="primary" @click="saveMetricsConfig">保存</a-button>
-      <a-button type="default" @click="exportMetricsJson">导出</a-button>
-      <a-button type="default" @click="resetToDefault">重置</a-button>
+      <a-button type="default" @click="setAllEnabled(true)">{{ t("configMetrics.action.selectAll") }}</a-button>
+      <a-button type="default" @click="setAllEnabled(false)">{{ t("configMetrics.action.selectNone") }}</a-button>
+      <a-button type="primary" @click="saveMetricsConfig">{{ t("common.save") }}</a-button>
+      <a-button type="default" @click="exportMetricsJson">{{ t("common.export") }}</a-button>
+      <a-button type="default" @click="resetToDefault">{{ t("common.reset") }}</a-button>
       <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ statusText }}</span>
     </a-space>
 
     <a-collapse>
-      <a-collapse-panel v-for="t in matrix" :key="t.type" :header="t.label">
+      <a-collapse-panel v-for="group in matrix" :key="group.type" :header="group.label">
         <a-row :gutter="[12, 12]">
-          <a-col v-for="p in t.phases" :key="p.phase" :xs="24" :md="12" :lg="6">
+          <a-col v-for="p in group.phases" :key="p.phase" :xs="24" :md="12" :lg="6">
             <a-card size="small" :title="p.label" style="height: 100%">
               <a-space direction="vertical" style="width: 100%" :size="6">
                 <div v-for="it in p.items" :key="it.key" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
                   <a-checkbox :checked="metricChecked(it.key)" @change="(e) => setMetricChecked(it.key, e && e.target ? e.target.checked : false)">
-                    {{ METRIC_LABELS[it.key] || it.key }}
+                    {{ metricLabel(it.key) }}
                   </a-checkbox>
                   <a-popover trigger="click" placement="right">
                     <template #content>
                       <div style="max-width: 360px">
-                        <div style="font-weight: 600; margin-bottom: 8px">{{ METRIC_LABELS[it.key] || it.key }}</div>
-                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">含义</div>
+                        <div style="font-weight: 600; margin-bottom: 8px">{{ metricLabel(it.key) }}</div>
+                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">{{ t("configMetrics.help.meaningTitle") }}</div>
                         <div style="margin-bottom: 8px">{{ helpOf(it.key).meaning }}</div>
-                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">度量方法</div>
+                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">{{ t("configMetrics.help.methodTitle") }}</div>
                         <div style="margin-bottom: 8px">{{ helpOf(it.key).method }}</div>
-                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">计算公式</div>
+                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">{{ t("configMetrics.help.formulaTitle") }}</div>
                         <div style="margin-bottom: 8px">{{ helpOf(it.key).formula }}</div>
-                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">参考值</div>
+                        <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px; margin-bottom: 4px">{{ t("configMetrics.help.referenceTitle") }}</div>
                         <div>{{ helpOf(it.key).reference }}</div>
                       </div>
                     </template>
@@ -55,9 +55,11 @@
 <script>
 import { computed, ref, watch } from "vue";
 import { load } from "js-yaml";
+import { useI18n } from "../i18n.js";
 
 export default {
   setup() {
+    const { t, locale } = useI18n();
     async function fetchProjectsRegistry() {
       try {
         const res = await fetch("/work/meta/config.yaml", { cache: "no-store" });
@@ -83,73 +85,258 @@ export default {
     }
 
 const METRIC_CATALOG = [
-  { key: "throughput", label: "吞吐量", type: "flow", phase: "plan" },
-  { key: "wip_avg", label: "平均在制（WIP）", type: "flow", phase: "plan" },
-  { key: "aging_wip", label: "老化在制（Aging WIP）", type: "flow", phase: "plan" },
-  { key: "lead_time_p50", label: "交付周期 p50", type: "flow", phase: "plan" },
-  { key: "lead_time_p75", label: "交付周期 p75", type: "flow", phase: "plan" },
-  { key: "lead_time_p95", label: "交付周期 p95", type: "flow", phase: "plan" },
-  { key: "cycle_time_p50", label: "处理周期 p50", type: "flow", phase: "dev" },
-  { key: "cycle_time_p75", label: "处理周期 p75", type: "flow", phase: "dev" },
-  { key: "cycle_time_p95", label: "处理周期 p95", type: "flow", phase: "dev" },
-  { key: "review_latency_p50", label: "评审等待 p50", type: "engineering", phase: "dev" },
-  { key: "review_latency_p75", label: "评审等待 p75", type: "engineering", phase: "dev" },
-  { key: "review_latency_p95", label: "评审等待 p95", type: "engineering", phase: "dev" },
-  { key: "pr_lead_time_p50", label: "PR 周期 p50", type: "engineering", phase: "dev" },
-  { key: "pr_lead_time_p75", label: "PR 周期 p75", type: "engineering", phase: "dev" },
-  { key: "pr_lead_time_p95", label: "PR 周期 p95", type: "engineering", phase: "dev" },
-  { key: "change_size", label: "变更规模", type: "engineering", phase: "dev" },
-  { key: "deployment_frequency", label: "发布频率", type: "flow", phase: "test" },
-  { key: "delivery_batch_size", label: "交付批量", type: "flow", phase: "test" },
-  { key: "delivery_cycle_time_p50", label: "交付周期（测试/交付）p50", type: "flow", phase: "test" },
-  { key: "delivery_cycle_time_p75", label: "交付周期（测试/交付）p75", type: "flow", phase: "test" },
-  { key: "delivery_cycle_time_p95", label: "交付周期（测试/交付）p95", type: "flow", phase: "test" },
-  { key: "mttr", label: "平均恢复时间（MTTR）", type: "flow", phase: "run" },
-  { key: "change_failure_rate", label: "变更失败率", type: "flow", phase: "run" },
-  { key: "commitment_reliability", label: "承诺达成率", type: "plan", phase: "plan" },
-  { key: "scope_change", label: "范围变更", type: "plan", phase: "plan" },
-  { key: "iteration_throughput", label: "迭代吞吐率", type: "plan", phase: "plan" },
-  { key: "iteration_completion_rate", label: "迭代完成率", type: "plan", phase: "plan" },
-  { key: "carryover_rate", label: "迭代结转率", type: "plan", phase: "plan" },
-  { key: "wip_limit_adherence", label: "WIP 上限执行率", type: "plan", phase: "dev" },
-  { key: "blocked_ratio", label: "阻塞占比", type: "plan", phase: "dev" },
-  { key: "ontime_delivery_rate", label: "按期交付率", type: "plan", phase: "test" },
-  { key: "rework_ratio", label: "返工比例", type: "plan", phase: "test" },
-  { key: "requirement_change_rate", label: "需求变更率", type: "plan", phase: "test" },
-  { key: "online_commitment_deviation", label: "线上承诺偏差", type: "plan", phase: "run" },
-  { key: "sla", label: "SLA 达成情况", type: "plan", phase: "run" },
-  { key: "requirement_defects", label: "需求缺陷情况", type: "quality", phase: "plan" },
-  { key: "code_defects", label: "代码缺陷情况", type: "quality", phase: "dev" },
-  { key: "automated_test_coverage", label: "自动化测试覆盖率", type: "quality", phase: "test" },
-  { key: "bug_rate", label: "缺陷率（Bug Rate）", type: "quality", phase: "plan" },
-  { key: "reopen_rate", label: "重开率", type: "quality", phase: "test" },
-  { key: "review_defects", label: "评审缺陷", type: "quality", phase: "dev" },
-  { key: "test_blockers", label: "测试阻塞", type: "quality", phase: "dev" },
-  { key: "regression_defects", label: "回归缺陷", type: "quality", phase: "test" },
-  { key: "system_integration_test_defects", label: "系统集成测试缺陷分析", type: "quality", phase: "test" },
-  { key: "acceptance_test_defects", label: "验收测试缺陷分析", type: "quality", phase: "test" },
-  { key: "acceptance_fail_rate", label: "验收失败率", type: "quality", phase: "test" },
-  { key: "escaped_defects", label: "缺陷逃逸数量", type: "quality", phase: "run" },
-  { key: "escaped_defect_rate", label: "缺陷逃逸率", type: "quality", phase: "run" },
-  { key: "prod_defect_severity", label: "生产缺陷严重度", type: "quality", phase: "run" },
-  { key: "commit_frequency", label: "提交频率", type: "engineering", phase: "plan" },
-  { key: "pr_issue_link_rate", label: "PR ↔ 需求关联率", type: "engineering", phase: "plan" },
-  { key: "ci_integration_frequency", label: "持续集成频率", type: "engineering", phase: "test" },
-  { key: "ci_success_rate", label: "CI 成功率", type: "engineering", phase: "test" },
-  { key: "code_scan_pass_rate", label: "代码扫描通过率", type: "engineering", phase: "test" },
-  { key: "ci_duration_p50", label: "CI 耗时 p50", type: "engineering", phase: "test" },
-  { key: "oncall_load", label: "值班负载", type: "engineering", phase: "run" },
-  { key: "hotfix_ratio", label: "紧急修复占比", type: "engineering", phase: "run" }
+  { key: "throughput", type: "flow", phase: "plan" },
+  { key: "wip_avg", type: "flow", phase: "plan" },
+  { key: "aging_wip", type: "flow", phase: "plan" },
+  { key: "lead_time_p50", type: "flow", phase: "plan" },
+  { key: "lead_time_p75", type: "flow", phase: "plan" },
+  { key: "lead_time_p95", type: "flow", phase: "plan" },
+  { key: "cycle_time_p50", type: "flow", phase: "dev" },
+  { key: "cycle_time_p75", type: "flow", phase: "dev" },
+  { key: "cycle_time_p95", type: "flow", phase: "dev" },
+  { key: "review_latency_p50", type: "engineering", phase: "dev" },
+  { key: "review_latency_p75", type: "engineering", phase: "dev" },
+  { key: "review_latency_p95", type: "engineering", phase: "dev" },
+  { key: "pr_lead_time_p50", type: "engineering", phase: "dev" },
+  { key: "pr_lead_time_p75", type: "engineering", phase: "dev" },
+  { key: "pr_lead_time_p95", type: "engineering", phase: "dev" },
+  { key: "change_size", type: "engineering", phase: "dev" },
+  { key: "deployment_frequency", type: "flow", phase: "test" },
+  { key: "delivery_batch_size", type: "flow", phase: "test" },
+  { key: "delivery_cycle_time_p50", type: "flow", phase: "test" },
+  { key: "delivery_cycle_time_p75", type: "flow", phase: "test" },
+  { key: "delivery_cycle_time_p95", type: "flow", phase: "test" },
+  { key: "mttr", type: "flow", phase: "run" },
+  { key: "change_failure_rate", type: "flow", phase: "run" },
+  { key: "commitment_reliability", type: "plan", phase: "plan" },
+  { key: "scope_change", type: "plan", phase: "plan" },
+  { key: "iteration_throughput", type: "plan", phase: "plan" },
+  { key: "iteration_completion_rate", type: "plan", phase: "plan" },
+  { key: "carryover_rate", type: "plan", phase: "plan" },
+  { key: "wip_limit_adherence", type: "plan", phase: "dev" },
+  { key: "blocked_ratio", type: "plan", phase: "dev" },
+  { key: "ontime_delivery_rate", type: "plan", phase: "test" },
+  { key: "rework_ratio", type: "plan", phase: "test" },
+  { key: "requirement_change_rate", type: "plan", phase: "test" },
+  { key: "online_commitment_deviation", type: "plan", phase: "run" },
+  { key: "sla", type: "plan", phase: "run" },
+  { key: "requirement_defects", type: "quality", phase: "plan" },
+  { key: "code_defects", type: "quality", phase: "dev" },
+  { key: "automated_test_coverage", type: "quality", phase: "test" },
+  { key: "bug_rate", type: "quality", phase: "plan" },
+  { key: "reopen_rate", type: "quality", phase: "test" },
+  { key: "review_defects", type: "quality", phase: "dev" },
+  { key: "test_blockers", type: "quality", phase: "dev" },
+  { key: "regression_defects", type: "quality", phase: "test" },
+  { key: "system_integration_test_defects", type: "quality", phase: "test" },
+  { key: "acceptance_test_defects", type: "quality", phase: "test" },
+  { key: "acceptance_fail_rate", type: "quality", phase: "test" },
+  { key: "escaped_defects", type: "quality", phase: "run" },
+  { key: "escaped_defect_rate", type: "quality", phase: "run" },
+  { key: "prod_defect_severity", type: "quality", phase: "run" },
+  { key: "commit_frequency", type: "engineering", phase: "plan" },
+  { key: "pr_issue_link_rate", type: "engineering", phase: "plan" },
+  { key: "ci_integration_frequency", type: "engineering", phase: "test" },
+  { key: "ci_success_rate", type: "engineering", phase: "test" },
+  { key: "code_scan_pass_rate", type: "engineering", phase: "test" },
+  { key: "ci_duration_p50", type: "engineering", phase: "test" },
+  { key: "oncall_load", type: "engineering", phase: "run" },
+  { key: "hotfix_ratio", type: "engineering", phase: "run" }
 ];
 
 const METRIC_KEYS = Array.from(new Set(METRIC_CATALOG.map((x) => x.key)));
-const METRIC_LABELS = METRIC_CATALOG.reduce((acc, x) => {
-  acc[x.key] = x.label;
-  return acc;
-}, {});
+const METRIC_LABELS_ZH = {
+  throughput: "吞吐量",
+  wip_avg: "平均在制（WIP）",
+  aging_wip: "老化在制（Aging WIP）",
+  lead_time_p50: "交付周期 p50",
+  lead_time_p75: "交付周期 p75",
+  lead_time_p95: "交付周期 p95",
+  cycle_time_p50: "处理周期 p50",
+  cycle_time_p75: "处理周期 p75",
+  cycle_time_p95: "处理周期 p95",
+  review_latency_p50: "评审等待 p50",
+  review_latency_p75: "评审等待 p75",
+  review_latency_p95: "评审等待 p95",
+  pr_lead_time_p50: "PR 周期 p50",
+  pr_lead_time_p75: "PR 周期 p75",
+  pr_lead_time_p95: "PR 周期 p95",
+  change_size: "变更规模",
+  deployment_frequency: "发布频率",
+  delivery_batch_size: "交付批量",
+  delivery_cycle_time_p50: "交付周期（测试/交付）p50",
+  delivery_cycle_time_p75: "交付周期（测试/交付）p75",
+  delivery_cycle_time_p95: "交付周期（测试/交付）p95",
+  mttr: "平均恢复时间（MTTR）",
+  change_failure_rate: "变更失败率",
+  commitment_reliability: "承诺达成率",
+  scope_change: "范围变更",
+  iteration_throughput: "迭代吞吐率",
+  iteration_completion_rate: "迭代完成率",
+  carryover_rate: "迭代结转率",
+  wip_limit_adherence: "WIP 上限执行率",
+  blocked_ratio: "阻塞占比",
+  ontime_delivery_rate: "按期交付率",
+  rework_ratio: "返工比例",
+  requirement_change_rate: "需求变更率",
+  online_commitment_deviation: "线上承诺偏差",
+  sla: "SLA 达成情况",
+  requirement_defects: "需求缺陷情况",
+  code_defects: "代码缺陷情况",
+  automated_test_coverage: "自动化测试覆盖率",
+  bug_rate: "缺陷率（Bug Rate）",
+  reopen_rate: "重开率",
+  review_defects: "评审缺陷",
+  test_blockers: "测试阻塞",
+  regression_defects: "回归缺陷",
+  system_integration_test_defects: "系统集成测试缺陷分析",
+  acceptance_test_defects: "验收测试缺陷分析",
+  acceptance_fail_rate: "验收失败率",
+  escaped_defects: "缺陷逃逸数量",
+  escaped_defect_rate: "缺陷逃逸率",
+  prod_defect_severity: "生产缺陷严重度",
+  commit_frequency: "提交频率",
+  pr_issue_link_rate: "PR ↔ 需求关联率",
+  ci_integration_frequency: "持续集成频率",
+  ci_success_rate: "CI 成功率",
+  code_scan_pass_rate: "代码扫描通过率",
+  ci_duration_p50: "CI 耗时 p50",
+  oncall_load: "值班负载",
+  hotfix_ratio: "紧急修复占比"
+};
 
-const PHASE_LABELS = { plan: "需求/计划", dev: "开发/评审", test: "测试/交付", run: "线上/运行" };
-const TYPE_LABELS = { flow: "流动", plan: "计划", quality: "质量", engineering: "工程效率" };
+const METRIC_LABELS_JA = {
+  throughput: "スループット",
+  wip_avg: "平均WIP",
+  aging_wip: "老化WIP（Aging WIP）",
+  lead_time_p50: "リードタイム p50",
+  lead_time_p75: "リードタイム p75",
+  lead_time_p95: "リードタイム p95",
+  cycle_time_p50: "サイクルタイム p50",
+  cycle_time_p75: "サイクルタイム p75",
+  cycle_time_p95: "サイクルタイム p95",
+  review_latency_p50: "レビュー待ち p50",
+  review_latency_p75: "レビュー待ち p75",
+  review_latency_p95: "レビュー待ち p95",
+  pr_lead_time_p50: "PRサイクル p50",
+  pr_lead_time_p75: "PRサイクル p75",
+  pr_lead_time_p95: "PRサイクル p95",
+  change_size: "変更規模",
+  deployment_frequency: "デプロイ頻度",
+  delivery_batch_size: "配信バッチサイズ",
+  delivery_cycle_time_p50: "配信サイクル（テスト/配信）p50",
+  delivery_cycle_time_p75: "配信サイクル（テスト/配信）p75",
+  delivery_cycle_time_p95: "配信サイクル（テスト/配信）p95",
+  mttr: "MTTR",
+  change_failure_rate: "変更失敗率",
+  commitment_reliability: "コミット達成率",
+  scope_change: "スコープ変更",
+  iteration_throughput: "イテレーションスループット",
+  iteration_completion_rate: "イテレーション完了率",
+  carryover_rate: "持ち越し率",
+  wip_limit_adherence: "WIP上限遵守率",
+  blocked_ratio: "ブロック比率",
+  ontime_delivery_rate: "期日通り配信率",
+  rework_ratio: "手戻り比率",
+  requirement_change_rate: "要件変更率",
+  online_commitment_deviation: "本番コミット偏差",
+  sla: "SLA達成",
+  requirement_defects: "要件欠陥",
+  code_defects: "コード欠陥",
+  automated_test_coverage: "自動テストカバレッジ",
+  bug_rate: "欠陥率（Bug Rate）",
+  reopen_rate: "再オープン率",
+  review_defects: "レビュー欠陥",
+  test_blockers: "テストブロッカー",
+  regression_defects: "回帰欠陥",
+  system_integration_test_defects: "SIT欠陥分析",
+  acceptance_test_defects: "UAT欠陥分析",
+  acceptance_fail_rate: "受入失敗率",
+  escaped_defects: "逃逸欠陥数",
+  escaped_defect_rate: "逃逸欠陥率",
+  prod_defect_severity: "本番欠陥重大度",
+  commit_frequency: "コミット頻度",
+  pr_issue_link_rate: "PR↔課題関連率",
+  ci_integration_frequency: "CI統合頻度",
+  ci_success_rate: "CI成功率",
+  code_scan_pass_rate: "コードスキャン通過率",
+  ci_duration_p50: "CI所要時間 p50",
+  oncall_load: "オンコール負荷",
+  hotfix_ratio: "緊急修正比率"
+};
+
+const METRIC_LABELS_EN = {
+  throughput: "Throughput",
+  wip_avg: "Avg WIP",
+  aging_wip: "Aging WIP",
+  lead_time_p50: "Lead Time p50",
+  lead_time_p75: "Lead Time p75",
+  lead_time_p95: "Lead Time p95",
+  cycle_time_p50: "Cycle Time p50",
+  cycle_time_p75: "Cycle Time p75",
+  cycle_time_p95: "Cycle Time p95",
+  review_latency_p50: "Review Latency p50",
+  review_latency_p75: "Review Latency p75",
+  review_latency_p95: "Review Latency p95",
+  pr_lead_time_p50: "PR Lead Time p50",
+  pr_lead_time_p75: "PR Lead Time p75",
+  pr_lead_time_p95: "PR Lead Time p95",
+  change_size: "Change Size",
+  deployment_frequency: "Deployment Frequency",
+  delivery_batch_size: "Delivery Batch Size",
+  delivery_cycle_time_p50: "Delivery Cycle Time (Test/Delivery) p50",
+  delivery_cycle_time_p75: "Delivery Cycle Time (Test/Delivery) p75",
+  delivery_cycle_time_p95: "Delivery Cycle Time (Test/Delivery) p95",
+  mttr: "MTTR",
+  change_failure_rate: "Change Failure Rate",
+  commitment_reliability: "Commitment Reliability",
+  scope_change: "Scope Change",
+  iteration_throughput: "Iteration Throughput",
+  iteration_completion_rate: "Iteration Completion Rate",
+  carryover_rate: "Carryover Rate",
+  wip_limit_adherence: "WIP Limit Adherence",
+  blocked_ratio: "Blocked Ratio",
+  ontime_delivery_rate: "On-time Delivery Rate",
+  rework_ratio: "Rework Ratio",
+  requirement_change_rate: "Requirement Change Rate",
+  online_commitment_deviation: "Online Commitment Deviation",
+  sla: "SLA Achievement",
+  requirement_defects: "Requirement Defects",
+  code_defects: "Code Defects",
+  automated_test_coverage: "Automated Test Coverage",
+  bug_rate: "Bug Rate",
+  reopen_rate: "Reopen Rate",
+  review_defects: "Review Defects",
+  test_blockers: "Test Blockers",
+  regression_defects: "Regression Defects",
+  system_integration_test_defects: "SIT Defects Analysis",
+  acceptance_test_defects: "UAT Defects Analysis",
+  acceptance_fail_rate: "Acceptance Fail Rate",
+  escaped_defects: "Escaped Defects",
+  escaped_defect_rate: "Escaped Defect Rate",
+  prod_defect_severity: "Prod Defect Severity",
+  commit_frequency: "Commit Frequency",
+  pr_issue_link_rate: "PR ↔ Issue Link Rate",
+  ci_integration_frequency: "CI Integration Frequency",
+  ci_success_rate: "CI Success Rate",
+  code_scan_pass_rate: "Code Scan Pass Rate",
+  ci_duration_p50: "CI Duration p50",
+  oncall_load: "On-call Load",
+  hotfix_ratio: "Hotfix Ratio"
+};
+
+function currentLocale() {
+  const v = locale && locale.value ? String(locale.value) : "zh-CN";
+  return v === "ja-JP" || v === "en-US" || v === "zh-CN" ? v : "zh-CN";
+}
+
+function metricLabel(key) {
+  const k = String(key || "");
+  const lc = currentLocale();
+  if (lc === "ja-JP") return METRIC_LABELS_JA[k] || METRIC_LABELS_ZH[k] || k;
+  if (lc === "en-US") return METRIC_LABELS_EN[k] || METRIC_LABELS_ZH[k] || k;
+  return METRIC_LABELS_ZH[k] || k;
+}
 
 function defaultEnabledMap() {
   const m = {};
@@ -249,7 +436,138 @@ const METRIC_HELP = {
 
 function helpOf(key) {
   const k = String(key);
-  const label = METRIC_LABELS[k] || k;
+  const label = metricLabel(k);
+  const lc = currentLocale();
+  if (lc === "en-US") {
+    return (
+      {
+        throughput: {
+          meaning: "Number of completed items in the window.",
+          method: "Use metrics.throughput.count.",
+          formula: "Throughput = count(completed items).",
+          reference: "Focus on trend."
+        },
+        wip_avg: {
+          meaning: "Average work-in-progress in the window.",
+          method: "Count items in WIP statuses over time and average.",
+          formula: "Avg WIP = time-average(WIP count).",
+          reference: "Use WIP limit as a reference."
+        },
+        lead_time_p50: {
+          meaning: "Median lead time from created to done.",
+          method: "Compute created→done duration distribution and take p50.",
+          formula: "Lead time = done_at - created_at.",
+          reference: "Compare with team expectation/commitment."
+        },
+        cycle_time_p50: {
+          meaning: "Median cycle time from started to done.",
+          method: "Compute in_progress→done duration distribution and take p50.",
+          formula: "Cycle time = done_at - in_progress_at.",
+          reference: "Interpret with WIP and review latency."
+        },
+        bug_rate: {
+          meaning: "Share of bug completions in the window.",
+          method: "Count completed bugs and total completions.",
+          formula: "Bug rate = BugsDone / AllDone.",
+          reference: "Interpret with change size and rework."
+        },
+        escaped_defects: {
+          meaning: "Number of escaped (production) defects.",
+          method: "Identify production defects via bug_source rules.",
+          formula: "Escaped defects = count(prod defects).",
+          reference: "Track severity and trend."
+        },
+        automated_test_coverage: {
+          meaning: "Automated test coverage level.",
+          method: "Fetch coverage from test platform/CI.",
+          formula: "Coverage = covered / total.",
+          reference: "Assess together with regression cost."
+        },
+        system_integration_test_defects: {
+          meaning: "Defects exposed in system integration test (distribution, not just count).",
+          method: "Group SIT defects by module/type/cause/ownership and analyze patterns.",
+          formula: "Break down into: count, ratio, top causes/modules.",
+          reference: "Helps locate integration, environment parity, missing contract tests, cross-team interface issues."
+        },
+        acceptance_test_defects: {
+          meaning: "Defects exposed in acceptance/UAT (distribution, not just count).",
+          method: "Group UAT defects by cause, link with requirement changes and acceptance criteria.",
+          formula: "Break down into: count, ratio, top acceptance failure reasons.",
+          reference: "Helps locate unclear criteria, insufficient clarification, regression gaps, data/permission/environment differences."
+        }
+      }[k] || {
+        meaning: `Metric: ${label}. Used to locate bottlenecks in flow/quality/engineering.`,
+        method: "Aggregate from PM / Git / CI / bug systems based on your team definition.",
+        formula: "Depends on definition; start with trends and refine later.",
+        reference: "Focus on trend and breakpoints; connect with evidence (board/PR/CI)."
+      }
+    );
+  }
+  if (lc === "ja-JP") {
+    return (
+      {
+        throughput: {
+          meaning: "期間内に完了した作業項目数。",
+          method: "metrics.throughput.count を利用。",
+          formula: "スループット = 完了件数。",
+          reference: "傾向を見る。"
+        },
+        wip_avg: {
+          meaning: "期間内の平均WIP。",
+          method: "WIPステータスの件数を時系列で平均化。",
+          formula: "平均WIP = WIP件数の時間平均。",
+          reference: "WIP上限を参考にする。"
+        },
+        lead_time_p50: {
+          meaning: "作成→完了のリードタイム中央値。",
+          method: "created→done の分布から p50 を取る。",
+          formula: "Lead time = done_at - created_at。",
+          reference: "チームの期待/コミットと比較。"
+        },
+        cycle_time_p50: {
+          meaning: "着手→完了のサイクルタイム中央値。",
+          method: "in_progress→done の分布から p50 を取る。",
+          formula: "Cycle time = done_at - in_progress_at。",
+          reference: "WIP/レビュー待ちと合わせて解釈。"
+        },
+        bug_rate: {
+          meaning: "期間内のBug完了比率。",
+          method: "Bug完了数と総完了数を集計。",
+          formula: "Bug rate = BugsDone / AllDone。",
+          reference: "変更規模や手戻りと合わせて見る。"
+        },
+        escaped_defects: {
+          meaning: "本番逃逸欠陥数。",
+          method: "bug_source のルールで本番欠陥を識別。",
+          formula: "Escaped defects = count(prod defects)。",
+          reference: "重大度と傾向を追う。"
+        },
+        automated_test_coverage: {
+          meaning: "自動テストカバレッジ。",
+          method: "テスト基盤/CIから取得。",
+          formula: "Coverage = covered / total。",
+          reference: "回帰コストと合わせて評価。"
+        },
+        system_integration_test_defects: {
+          meaning: "SITで検出された欠陥の分布（件数だけでなく原因/偏り）。",
+          method: "SIT欠陥をモジュール/種類/原因で分類しパターン分析。",
+          formula: "件数・比率・Top原因/モジュールの内訳。",
+          reference: "統合、環境差、契約テスト不足、クロスチームIFの課題を特定。"
+        },
+        acceptance_test_defects: {
+          meaning: "UAT/受入で検出された欠陥の分布（件数だけでなく原因/偏り）。",
+          method: "受入欠陥を原因で分類し、要件変更/受入基準/回帰網羅と連動分析。",
+          formula: "件数・比率・受入失敗理由Topの内訳。",
+          reference: "基準不明確、要件明確化不足、回帰不足、データ/権限/環境差を特定。"
+        }
+      }[k] || {
+        meaning: `指標：${label}。フロー/品質/開発効率のボトルネック特定に使います。`,
+        method: "PM/Git/CI/欠陥システムから、チーム定義に従って集計します。",
+        formula: "定義に依存。まずは傾向から始め、必要に応じて詳細化。",
+        reference: "傾向と変化点を重視し、ボード/PR/CIなどの証拠と合わせて解釈。"
+      }
+    );
+  }
   return (
     METRIC_HELP[k] || {
       meaning: `指标：${label}。用于辅助定位流程/质量/工程效率方面的阻碍点。`,
@@ -273,8 +591,8 @@ const matrix = computed(() => {
     byType[t] = byType[t] || [];
     byType[t].push(m);
   });
-  const types = Object.keys(TYPE_LABELS).map((t) => ({ type: t, label: TYPE_LABELS[t] }));
-  const phases = Object.keys(PHASE_LABELS).map((p) => ({ phase: p, label: PHASE_LABELS[p] }));
+  const types = ["flow", "plan", "quality", "engineering"].map((tp) => ({ type: tp, label: t(`configMetrics.type.${tp}`) }));
+  const phases = ["plan", "dev", "test", "run"].map((ph) => ({ phase: ph, label: t(`configMetrics.phase.${ph}`) }));
   return types.map((t) => ({
     ...t,
     phases: phases.map((p) => ({ ...p, items: (byType[t.type] || []).filter((x) => x.phase === p.phase) }))
@@ -316,7 +634,7 @@ function exportMetricsJson() {
   const pid = selectedProjectId.value || "example";
   const payload = { enabled: { ...defaultEnabledMap(), ...((metricsConfig.value && metricsConfig.value.enabled) || {}) } };
   downloadText("metrics.json", JSON.stringify(payload, null, 2), "application/json");
-  statusText.value = `已导出 metrics.json（放到 work/${pid}/meta/metrics.json）`;
+  statusText.value = t("configMetrics.status.exported", { pid });
 }
 
 function saveMetricsConfig() {
@@ -324,9 +642,9 @@ function saveMetricsConfig() {
   const payload = { enabled: { ...defaultEnabledMap(), ...((metricsConfig.value && metricsConfig.value.enabled) || {}) } };
   try {
     window.localStorage.setItem(`prjmx.metricsConfig.${pid}`, JSON.stringify(payload));
-    statusText.value = "已保存（本地）";
+    statusText.value = t("configMetrics.status.savedLocal");
   } catch {
-    statusText.value = "保存失败";
+    statusText.value = t("configMetrics.status.saveFailed");
   }
 }
 
@@ -351,7 +669,7 @@ function resetToDefault() {
   try {
     window.localStorage.removeItem(`prjmx.metricsConfig.${pid}`);
   } catch {}
-  statusText.value = "已重置为默认";
+  statusText.value = t("configMetrics.status.resetDefault");
 }
 
     watch(selectedProjectId, () => {
@@ -362,11 +680,12 @@ function resetToDefault() {
     });
 
     return {
+      t,
       statusText,
       projects,
       selectedProjectId,
       matrix,
-      METRIC_LABELS,
+      metricLabel,
       metricChecked,
       setMetricChecked,
       setAllEnabled,

@@ -11,12 +11,12 @@
     </a-card>
     <a-card size="small" :title="t('analysis.scope')">
       <div style="color: rgba(0, 0, 0, 0.65); font-size: 12px">
-        已选指标：{{ enabledMetricKeys.length }} 个{{ enabledMetricKeys.length ? "" : "（未选择时默认不展示，请先到“度量指标配置”勾选）" }}
+        {{ t("analysis.metrics.selectedCount", { count: enabledMetricKeys.length }) }}{{ enabledMetricKeys.length ? "" : t("analysis.metrics.scopeHint.noneSelected") }}
       </div>
     </a-card>
     <div v-if="!metricsData" style="color: rgba(0, 0, 0, 0.65)">{{ t("analysis.noMetricsYet") }}</div>
     <a-collapse v-else :bordered="false" style="background: transparent">
-      <a-collapse-panel key="flow" header="流动（Flow）">
+      <a-collapse-panel key="flow" :header="t('analysis.metrics.group.flow')">
         <div v-if="groupedCards.flow.length === 0" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">—</div>
         <a-table v-else :columns="metricsTableColumns" :data-source="groupedCards.flow" size="small" :pagination="false">
           <template #bodyCell="{ column, record }">
@@ -29,7 +29,7 @@
           </template>
         </a-table>
       </a-collapse-panel>
-      <a-collapse-panel key="plan" header="计划（Plan）">
+      <a-collapse-panel key="plan" :header="t('analysis.metrics.group.plan')">
         <div v-if="groupedCards.plan.length === 0" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">—</div>
         <a-table v-else :columns="metricsTableColumns" :data-source="groupedCards.plan" size="small" :pagination="false">
           <template #bodyCell="{ column, record }">
@@ -42,7 +42,7 @@
           </template>
         </a-table>
       </a-collapse-panel>
-      <a-collapse-panel key="quality" header="质量（Quality）">
+      <a-collapse-panel key="quality" :header="t('analysis.metrics.group.quality')">
         <div v-if="groupedCards.quality.length === 0" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">—</div>
         <a-table v-else :columns="metricsTableColumns" :data-source="groupedCards.quality" size="small" :pagination="false">
           <template #bodyCell="{ column, record }">
@@ -55,7 +55,7 @@
           </template>
         </a-table>
       </a-collapse-panel>
-      <a-collapse-panel key="engineering" header="工程效率（Engineering）">
+      <a-collapse-panel key="engineering" :header="t('analysis.metrics.group.engineering')">
         <div v-if="groupedCards.engineering.length === 0" style="color: rgba(0, 0, 0, 0.45); font-size: 12px">—</div>
         <a-table v-else :columns="metricsTableColumns" :data-source="groupedCards.engineering" size="small" :pagination="false">
           <template #bodyCell="{ column, record }">
@@ -68,7 +68,7 @@
           </template>
         </a-table>
       </a-collapse-panel>
-      <a-collapse-panel v-if="groupedCards.other.length" key="other" header="其他">
+      <a-collapse-panel v-if="groupedCards.other.length" key="other" :header="t('analysis.metrics.group.other')">
         <a-table :columns="metricsTableColumns" :data-source="groupedCards.other" size="small" :pagination="false">
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'status'">
@@ -112,7 +112,7 @@ export default {
     function formatDays(value) {
       const n = safeNumber(value);
       if (n === null) return "—";
-      return `${Math.round(n * 10) / 10} 天`;
+      return t("unit.days", { n: Math.round(n * 10) / 10 });
     }
 
     function rrgFromTarget(actual, target, higherIsBetter) {
@@ -130,9 +130,9 @@ export default {
     }
 
     function tagText(status) {
-      if (status === "success") return "达标";
-      if (status === "warning") return "关注";
-      if (status === "error") return "偏离";
+      if (status === "success") return t("analysis.metrics.status.success");
+      if (status === "warning") return t("analysis.metrics.status.warning");
+      if (status === "error") return t("analysis.metrics.status.error");
       return "—";
     }
 
@@ -159,23 +159,16 @@ export default {
 
     function missingReasonForMetric(id) {
       const k = String(id || "");
-      if (k === "throughput") return "暂无数据：可能本窗口内没有已完成（Done）的工作项，或 Jira 数据未成功获取。建议先执行“收集数据”，确认 Jira 工作项数量与状态分布。";
-      if (k === "wip_avg" || k === "aging_wip")
-        return "暂无数据：可能 Jira 中没有进行中的工作项，或状态/泳道口径未统一，或 Jira 数据获取失败。建议检查 Jira 工作项状态流转与“收集数据”结果。";
-      if (k.startsWith("lead_time_") || k.startsWith("cycle_time_") || k.startsWith("delivery_cycle_time_"))
-        return "暂无数据：可能本窗口内没有可用于统计的已完成条目，或 Jira 工作项缺少开始/完成时间（状态未流转/未记录变更），或 Jira 获取失败。建议检查 Jira 填写与状态流转口径。";
-      if (k.startsWith("pr_lead_time_"))
-        return "暂无数据：可能本窗口内没有 PR，或 PR 未合并/缺少创建或合并时间，或 Git 平台数据获取失败。建议检查仓库权限与 PR 数据是否存在。";
-      if (k.startsWith("review_latency"))
-        return "暂无数据：可能没有评审事件/评审数据未接入，或权限不足导致无法读取评审信息。建议检查评审数据来源与权限配置。";
-      if (k.startsWith("ci_"))
-        return "暂无数据：可能本窗口内没有 CI 运行记录，或 CI 系统未配置/权限不足导致获取失败。建议检查 CI 数据源配置与收集结果。";
-      if (k.includes("code_scan")) return "暂无数据：可能未启用代码扫描门禁，或扫描结果未接入 CI 数据源。建议检查扫描工具与 CI 的集成配置。";
-      if (k.includes("bug") || k.includes("reopen") || k.includes("escaped") || k.includes("defect"))
-        return "暂无数据：可能缺陷记录不足，或缺陷字段（类型/阶段）未维护，或缺陷系统数据未接入/获取失败。建议检查缺陷口径与数据源配置。";
-      if (k.includes("commitment") || k.includes("carryover") || k.includes("scope_change") || k.includes("requirement_change"))
-        return "暂无数据：可能迭代计划/范围变更在 Jira 中未维护（缺少 Sprint/版本/变更记录），或相应字段未填写/未接入。建议先完善计划与变更数据口径。";
-      return "暂无数据：可能输入数据为空，或数据源获取失败。建议先执行“收集数据”，并检查 Jira/Git/CI/缺陷系统的配置与权限。";
+      if (k === "throughput") return t("analysis.metrics.missing.throughput");
+      if (k === "wip_avg" || k === "aging_wip") return t("analysis.metrics.missing.wip");
+      if (k.startsWith("lead_time_") || k.startsWith("cycle_time_") || k.startsWith("delivery_cycle_time_")) return t("analysis.metrics.missing.leadTime");
+      if (k.startsWith("pr_lead_time_")) return t("analysis.metrics.missing.prLeadTime");
+      if (k.startsWith("review_latency")) return t("analysis.metrics.missing.reviewLatency");
+      if (k.startsWith("ci_")) return t("analysis.metrics.missing.ci");
+      if (k.includes("code_scan")) return t("analysis.metrics.missing.codeScan");
+      if (k.includes("bug") || k.includes("reopen") || k.includes("escaped") || k.includes("defect")) return t("analysis.metrics.missing.defects");
+      if (k.includes("commitment") || k.includes("carryover") || k.includes("scope_change") || k.includes("requirement_change")) return t("analysis.metrics.missing.plan");
+      return t("analysis.metrics.missing.generic");
     }
 
     function analysisFor(id, status, actual, target) {
@@ -183,36 +176,36 @@ export default {
       const s = String(status || "");
       if (actual === null || actual === undefined) return missingReasonForMetric(id);
       if (k.startsWith("lead_time_") || k.startsWith("cycle_time_") || k.startsWith("delivery_cycle_time_")) {
-        if (s === "success") return "周期达标，关注波动与分位数尾部；若末期集中上升，优先检查 WIP/等待/评审排队。";
-        if (s === "warning") return "略偏慢，优先通过拆小任务、减少并行、缩短评审等待来回拉。";
-        if (s === "error") return "明显偏慢，通常是排队与返工叠加；先查泳道阻塞、评审/集成等待与质量门禁。";
-        return "结合 WIP、评审等待与质量信号联动判断瓶颈位置。";
+        if (s === "success") return t("analysis.metrics.analysis.leadTime.success");
+        if (s === "warning") return t("analysis.metrics.analysis.leadTime.warning");
+        if (s === "error") return t("analysis.metrics.analysis.leadTime.error");
+        return t("analysis.metrics.analysis.leadTime.generic");
       }
       if (k === "wip_avg" || k === "aging_wip") {
-        if (s === "success") return "WIP 处于可控范围，继续关注在制老化条目是否集中在某泳道。";
-        if (s === "warning" || s === "error") return "WIP 偏高会引发排队与周期上升；建议设 WIP 上限、拉直流程、减少跨泳道等待。";
-        return "建议与泳道阻塞/周期指标联动查看。";
+        if (s === "success") return t("analysis.metrics.analysis.wip.success");
+        if (s === "warning" || s === "error") return t("analysis.metrics.analysis.wip.warning");
+        return t("analysis.metrics.analysis.wip.generic");
       }
       if (k === "bug_rate" || k === "reopen_rate" || k.startsWith("escaped_") || k.includes("defect")) {
-        if (s === "success") return "质量信号可接受；继续用缺陷分布/逃逸信号验证门禁是否前置。";
-        if (s === "warning" || s === "error") return "质量风险偏高；检查测试策略、门禁阈值、回归覆盖与缺陷反馈闭环。";
-        return "建议结合 code_scan/CI 与需求变更联动分析。";
+        if (s === "success") return t("analysis.metrics.analysis.quality.success");
+        if (s === "warning" || s === "error") return t("analysis.metrics.analysis.quality.warning");
+        return t("analysis.metrics.analysis.quality.generic");
       }
       if (k.startsWith("ci_") || k.includes("code_scan")) {
-        if (s === "success") return "工程门禁/CI 表现良好；关注耗时与反馈周期，避免质量门禁成为排队点。";
-        if (s === "warning" || s === "error") return "门禁未达标会导致返工与延迟；优先把门禁前置到 PR，并建立修复责任链。";
-        return "建议结合 PR 周期与交付周期联动判断。";
+        if (s === "success") return t("analysis.metrics.analysis.ci.success");
+        if (s === "warning" || s === "error") return t("analysis.metrics.analysis.ci.warning");
+        return t("analysis.metrics.analysis.ci.generic");
       }
       if (k.startsWith("pr_") || k.startsWith("review_latency")) {
-        if (s === "success") return "协作与评审节奏良好；继续关注 PR 粒度与末期合并集中。";
-        if (s === "warning" || s === "error") return "PR/评审等待偏大；建议拆小 PR、设评审窗口/轮值、限制并行并减少返工。";
-        return "建议结合 WIP/周期指标联动分析。";
+        if (s === "success") return t("analysis.metrics.analysis.pr.success");
+        if (s === "warning" || s === "error") return t("analysis.metrics.analysis.pr.warning");
+        return t("analysis.metrics.analysis.pr.generic");
       }
       if (k === "commitment_reliability" || k === "scope_change" || k.includes("requirement_change")) {
-        return "计划类指标用于判断承诺与变更压力；若变更频繁，需在计划/验收口径上形成共识并可视化影响。";
+        return t("analysis.metrics.analysis.plan.generic");
       }
-      if (target !== null && target !== undefined) return "结合目标阈值与趋势判断是否需要行动项；优先关注断点与异常波动。";
-      return "建议结合趋势与上下游指标联动解释。";
+      if (target !== null && target !== undefined) return t("analysis.metrics.analysis.target.generic");
+      return t("analysis.metrics.analysis.generic");
     }
 
     const METRIC_LABELS = {
@@ -266,6 +259,8 @@ export default {
 
     function labelOf(id) {
       const k = String(id || "");
+      const localized = t(`metric.${k}`);
+      if (localized && localized !== `metric.${k}`) return localized;
       if (METRIC_LABELS[k]) return METRIC_LABELS[k];
       const m = k.match(/^(delivery_cycle_time|lead_time|cycle_time|pr_lead_time|review_latency|ci_duration)_p(50|75|95)$/);
       if (m) {
@@ -279,9 +274,12 @@ export default {
           review_latency: "评审等待",
           ci_duration: "CI 耗时"
         };
-        return `${baseMap[base] || base} p${p}`;
+        const localizedBase = t(`metricBase.${base}`);
+        const baseText = localizedBase && localizedBase !== `metricBase.${base}` ? localizedBase : baseMap[base] || base;
+        return `${baseText} p${p}`;
       }
-      return `指标（${k}）`;
+      const fallback = t("analysis.metrics.metricFallback", { key: k });
+      return fallback && fallback !== "analysis.metrics.metricFallback" ? fallback : `Metric (${k})`;
     }
 
     function buildRow(id, actual, formatFn, target, higherIsBetter, extraPrefix) {
@@ -310,18 +308,18 @@ export default {
       const out = [];
       for (const id of keys) {
         if (id === "throughput") out.push(buildRow(id, pick(m, "throughput.count"), (v) => (v === null || v === undefined ? "—" : String(v)), null, false, ""));
-        else if (id === "wip_avg") out.push(buildRow(id, pick(m, "wip.avg"), (v) => (safeNumber(v) === null ? "—" : safeNumber(v).toFixed(1)), t.wip_limit, false, "上限 ≤ "));
+        else if (id === "wip_avg") out.push(buildRow(id, pick(m, "wip.avg"), (v) => (safeNumber(v) === null ? "—" : safeNumber(v).toFixed(1)), t.wip_limit, false, t("analysis.metrics.extra.upperLimit")));
         else if (id === "aging_wip") out.push(buildRow(id, pick(m, "wip.aging_count") ?? pick(m, "wip.aging_wip_count"), (v) => (v === null || v === undefined ? "—" : String(v)), null, false, ""));
-        else if (id === "lead_time_p50") out.push(buildRow(id, pick(m, "lead_time_days.p50"), formatDays, t.lead_time_p50_days, false, "目标 ≤ "));
+        else if (id === "lead_time_p50") out.push(buildRow(id, pick(m, "lead_time_days.p50"), formatDays, t.lead_time_p50_days, false, t("analysis.metrics.extra.targetLE")));
         else if (id === "lead_time_p75") out.push(buildRow(id, pick(m, "lead_time_days.p75"), formatDays, null, false, ""));
         else if (id === "lead_time_p95") out.push(buildRow(id, pick(m, "lead_time_days.p95"), formatDays, null, false, ""));
-        else if (id === "cycle_time_p50") out.push(buildRow(id, pick(m, "cycle_time_days.p50"), formatDays, t.cycle_time_p50_days, false, "目标 ≤ "));
+        else if (id === "cycle_time_p50") out.push(buildRow(id, pick(m, "cycle_time_days.p50"), formatDays, t.cycle_time_p50_days, false, t("analysis.metrics.extra.targetLE")));
         else if (id === "cycle_time_p75") out.push(buildRow(id, pick(m, "cycle_time_days.p75"), formatDays, null, false, ""));
         else if (id === "cycle_time_p95") out.push(buildRow(id, pick(m, "cycle_time_days.p95"), formatDays, null, false, ""));
-        else if (id === "pr_lead_time_p50") out.push(buildRow(id, pick(m, "pr_lead_time_days.p50"), formatDays, t.pr_lead_time_p50_days, false, "目标 ≤ "));
+        else if (id === "pr_lead_time_p50") out.push(buildRow(id, pick(m, "pr_lead_time_days.p50"), formatDays, t.pr_lead_time_p50_days, false, t("analysis.metrics.extra.targetLE")));
         else if (id === "pr_lead_time_p75") out.push(buildRow(id, pick(m, "pr_lead_time_days.p75"), formatDays, null, false, ""));
         else if (id === "pr_lead_time_p95") out.push(buildRow(id, pick(m, "pr_lead_time_days.p95"), formatDays, null, false, ""));
-        else if (id === "review_latency_p50") out.push(buildRow(id, pick(m, "review_latency_days.p50"), formatDays, t.review_latency_p50_days, false, "目标 ≤ "));
+        else if (id === "review_latency_p50") out.push(buildRow(id, pick(m, "review_latency_days.p50"), formatDays, t.review_latency_p50_days, false, t("analysis.metrics.extra.targetLE")));
         else if (id === "review_latency_p75") out.push(buildRow(id, pick(m, "review_latency_days.p75"), formatDays, null, false, ""));
         else if (id === "review_latency_p95") out.push(buildRow(id, pick(m, "review_latency_days.p95"), formatDays, null, false, ""));
         else if (id === "commitment_reliability") out.push(buildRow(id, pick(m, "plan.commitment_reliability"), formatPercent, null, true, ""));
@@ -335,29 +333,29 @@ export default {
             title: labelOf(id),
             value,
             status: null,
-            extra: "迭代内新增 / 移除（如有）",
+            extra: t("analysis.metrics.extra.scopeChangeNote"),
             analysis: analysisFor(id, null, value === "—" ? null : 0, null),
             metric_type: typeOfMetric(id)
           });
-        } else if (id === "bug_rate") out.push(buildRow(id, pick(m, "quality.bug_rate"), formatPercent, t.bug_rate_max, false, "阈值 ≤ "));
-        else if (id === "reopen_rate") out.push(buildRow(id, pick(m, "quality.reopen_rate"), formatPercent, t.reopen_rate_max, false, "阈值 ≤ "));
-        else if (id === "escaped_defects") out.push(buildRow(id, pick(m, "quality.escaped_defects"), (v) => (v === null || v === undefined ? "—" : String(v)), t.escaped_defects_max, false, "阈值 ≤ "));
-        else if (id === "escaped_defect_rate") out.push(buildRow(id, pick(m, "quality.escaped_defect_rate"), formatPercent, t.escaped_defect_rate_max, false, "阈值 ≤ "));
+        } else if (id === "bug_rate") out.push(buildRow(id, pick(m, "quality.bug_rate"), formatPercent, t.bug_rate_max, false, t("analysis.metrics.extra.thresholdLE")));
+        else if (id === "reopen_rate") out.push(buildRow(id, pick(m, "quality.reopen_rate"), formatPercent, t.reopen_rate_max, false, t("analysis.metrics.extra.thresholdLE")));
+        else if (id === "escaped_defects") out.push(buildRow(id, pick(m, "quality.escaped_defects"), (v) => (v === null || v === undefined ? "—" : String(v)), t.escaped_defects_max, false, t("analysis.metrics.extra.thresholdLE")));
+        else if (id === "escaped_defect_rate") out.push(buildRow(id, pick(m, "quality.escaped_defect_rate"), formatPercent, t.escaped_defect_rate_max, false, t("analysis.metrics.extra.thresholdLE")));
         else if (id === "ci_integration_frequency") out.push(buildRow(id, pick(m, "ci.integration_frequency.count") ?? pick(m, "ci.runs_count"), (v) => (v === null || v === undefined ? "—" : String(v)), null, true, ""));
-        else if (id === "ci_success_rate") out.push(buildRow(id, pick(m, "ci.success_rate"), formatPercent, t.ci_success_rate_min, true, "下限 ≥ "));
-        else if (id === "code_scan_pass_rate") out.push(buildRow(id, pick(m, "ci.code_scan_pass_rate"), formatPercent, t.code_scan_pass_rate_min, true, "下限 ≥ "));
+        else if (id === "ci_success_rate") out.push(buildRow(id, pick(m, "ci.success_rate"), formatPercent, t.ci_success_rate_min, true, t("analysis.metrics.extra.lowerLimit")));
+        else if (id === "code_scan_pass_rate") out.push(buildRow(id, pick(m, "ci.code_scan_pass_rate"), formatPercent, t.code_scan_pass_rate_min, true, t("analysis.metrics.extra.lowerLimit")));
         else out.push(buildRow(id, pick(m, id), (v) => (v === null || v === undefined ? "—" : String(v)), null, false, ""));
       }
       return out;
     });
 
-    const metricsTableColumns = [
-      { title: "指标", dataIndex: "title", key: "title" },
-      { title: "值", dataIndex: "value", key: "value", width: 140 },
-      { title: "状态", dataIndex: "status", key: "status", width: 90 },
-      { title: "说明/目标", dataIndex: "extra", key: "extra", width: 180 },
-      { title: "分析结论", dataIndex: "analysis", key: "analysis" }
-    ];
+    const metricsTableColumns = computed(() => [
+      { title: t("analysis.metrics.table.metric"), dataIndex: "title", key: "title" },
+      { title: t("analysis.metrics.table.value"), dataIndex: "value", key: "value", width: 140 },
+      { title: t("analysis.metrics.table.status"), dataIndex: "status", key: "status", width: 90 },
+      { title: t("analysis.metrics.table.extra"), dataIndex: "extra", key: "extra", width: 180 },
+      { title: t("analysis.metrics.table.analysis"), dataIndex: "analysis", key: "analysis" }
+    ]);
 
     const groupedCards = computed(() => {
       const groups = { flow: [], plan: [], quality: [], engineering: [], other: [] };

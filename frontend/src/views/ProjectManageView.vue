@@ -1,26 +1,26 @@
 <template>
   <a-space direction="vertical" style="width: 100%" :size="12">
     <a-space wrap align="center">
-      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">项目</span>
+      <span style="color: rgba(0, 0, 0, 0.65); font-size: 12px">{{ t("common.project") }}</span>
       <a-select v-model:value="selectedProjectIdModel" style="min-width: 320px">
         <a-select-option v-for="(p, idx) in projectsSafe" :key="String(p.id) + ':' + String(idx)" :value="String(p.id)">
           {{ projectLabel(p, idx) }}
         </a-select-option>
       </a-select>
-      <a-button type="primary" @click="openAddProject">新增项目</a-button>
-      <a-button type="default" @click="reloadWorkspaceConfig">从文件重载</a-button>
-      <a-button type="default" @click="goActions">进入行动项管理</a-button>
+      <a-button type="primary" @click="openAddProject">{{ t("projects.add") }}</a-button>
+      <a-button type="default" @click="reloadWorkspaceConfig">{{ t("projects.reloadFromFile") }}</a-button>
+      <a-button type="default" @click="goActions">{{ t("projects.goActions") }}</a-button>
     </a-space>
 
-    <a-card size="small" title="项目列表">
+    <a-card size="small" :title="t('projects.listTitle')">
       <a-table :columns="projectColumns" :data-source="projectRows" size="small" :pagination="{ pageSize: 8 }" :scroll="{ x: 900 }">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'op'">
             <a-space>
-              <a-button size="small" type="link" @click="openProjectDetail(record)">详情</a-button>
-              <a-button size="small" type="link" @click="openEditProject(record)">修改</a-button>
-              <a-popconfirm title="确认删除该项目？" ok-text="删除" cancel-text="取消" @confirm="deleteProject(record)">
-                <a-button size="small" type="link" danger>删除</a-button>
+              <a-button size="small" type="link" @click="openProjectDetail(record)">{{ t("common.detail") }}</a-button>
+              <a-button size="small" type="link" @click="openEditProject(record)">{{ t("common.edit") }}</a-button>
+              <a-popconfirm :title="t('common.confirmDelete')" :ok-text="t('common.delete')" :cancel-text="t('common.cancel')" @confirm="deleteProject(record)">
+                <a-button size="small" type="link" danger>{{ t("common.delete") }}</a-button>
               </a-popconfirm>
             </a-space>
           </template>
@@ -28,10 +28,10 @@
       </a-table>
     </a-card>
 
-    <a-card size="small" title="历史改进记录">
-      <div v-if="!selectedProjectIdModel" style="color: rgba(0, 0, 0, 0.65)">请先选择项目。</div>
+    <a-card size="small" :title="t('projects.historyTitle')">
+      <div v-if="!selectedProjectIdModel" style="color: rgba(0, 0, 0, 0.65)">{{ t("common.selectProjectFirst") }}</div>
       <div v-else-if="improvements.length === 0" style="color: rgba(0, 0, 0, 0.65)">
-        尚未保存任何历史快照。可在“行动项管理”里点击“保存改进快照”。
+        {{ t("projects.noHistory") }}
       </div>
       <a-space v-else direction="vertical" style="width: 100%" :size="10">
         <a-alert type="info" show-icon :message="improveSummaryText" />
@@ -40,29 +40,29 @@
     </a-card>
   </a-space>
 
-  <a-drawer v-model:visible="projectFormVisible" :title="projectFormMode === 'edit' ? '修改项目' : '新增项目'" placement="right" :width="520">
+  <a-drawer v-model:visible="projectFormVisible" :title="projectFormMode === 'edit' ? t('projects.editTitle') : t('projects.addTitle')" placement="right" :width="520">
     <a-form layout="vertical">
       <a-alert v-if="projectFormError" type="error" show-icon :message="projectFormError" style="margin-bottom: 10px" />
-      <a-form-item label="项目 ID">
+      <a-form-item :label="t('projects.field.id')">
         <a-input v-model:value="projectFormDraft.id" />
       </a-form-item>
-      <a-form-item label="项目名称">
+      <a-form-item :label="t('projects.field.name')">
         <a-input v-model:value="projectFormDraft.name" />
       </a-form-item>
-      <a-form-item label="英文名（slug_en）">
+      <a-form-item :label="t('projects.field.slug')">
         <a-input v-model:value="projectFormDraft.slug_en" />
       </a-form-item>
-      <a-form-item label="时区">
+      <a-form-item :label="t('projects.field.timezone')">
         <a-select v-model:value="projectFormDraft.timezone" style="width: 100%" :options="timezoneOptions" />
       </a-form-item>
       <a-space>
-        <a-button type="default" @click="projectFormVisible = false">取消</a-button>
-        <a-button type="primary" @click="saveProject">保存</a-button>
+        <a-button type="default" @click="projectFormVisible = false">{{ t("common.cancel") }}</a-button>
+        <a-button type="primary" @click="saveProject">{{ t("common.save") }}</a-button>
       </a-space>
     </a-form>
   </a-drawer>
 
-  <a-modal v-model:visible="projectDetailVisible" title="项目详情" :footer="null" width="720">
+  <a-modal v-model:visible="projectDetailVisible" :title="t('projects.detailTitle')" :footer="null" width="720">
     <pre style="margin: 0; white-space: pre-wrap">{{ JSON.stringify(projectDetail, null, 2) }}</pre>
   </a-modal>
 </template>
@@ -70,6 +70,7 @@
 <script>
 import { computed, ref, watch } from "vue";
 import { navigateTo } from "../routes.js";
+import { useI18n } from "../i18n.js";
 
 export default {
   props: {
@@ -79,6 +80,7 @@ export default {
   },
   emits: ["reloadWorkspaceConfig", "saveWorkspaceProjects", "update:selectedProjectId"],
   setup(props, { emit }) {
+    const { t } = useI18n();
     const defaultTz =
       (typeof Intl !== "undefined" &&
         Intl.DateTimeFormat &&
@@ -108,7 +110,7 @@ export default {
     function projectLabel(p, idx) {
       const id = p && p.id !== undefined && p.id !== null ? String(p.id).trim() : "";
       const name = p && p.name !== undefined && p.name !== null ? String(p.name).trim() : "";
-      return `${id || String(idx + 1)} · ${name || "未命名"}`;
+      return `${id || String(idx + 1)} · ${name || t("common.unnamed")}`;
     }
 
     const projectRows = computed(() =>
@@ -123,13 +125,13 @@ export default {
       }))
     );
 
-    const projectColumns = [
-      { title: "ID", dataIndex: "id", key: "id", width: 200 },
-      { title: "名称", dataIndex: "name", key: "name", width: 200 },
-      { title: "英文名", dataIndex: "slug_en", key: "slug_en", width: 200 },
-      { title: "时区", dataIndex: "timezone", key: "timezone", width: 180 },
-      { title: "操作", key: "op", width: 220 }
-    ];
+    const projectColumns = computed(() => [
+      { title: t("projects.col.id"), dataIndex: "id", key: "id", width: 200 },
+      { title: t("projects.col.name"), dataIndex: "name", key: "name", width: 200 },
+      { title: t("projects.col.slug"), dataIndex: "slug_en", key: "slug_en", width: 200 },
+      { title: t("projects.col.timezone"), dataIndex: "timezone", key: "timezone", width: 180 },
+      { title: t("projects.col.op"), key: "op", width: 220 }
+    ]);
 
     const projectFormVisible = ref(false);
     const projectFormMode = ref("add");
@@ -168,7 +170,7 @@ export default {
       const slug = String(projectFormDraft.value.slug_en || "").trim();
       const timezone = String(projectFormDraft.value.timezone || "").trim() || defaultTz;
       if (!id) {
-        projectFormError.value = "项目 ID 不能为空";
+        projectFormError.value = t("projects.error.idRequired");
         return;
       }
 
@@ -177,7 +179,7 @@ export default {
 
       if (projectFormMode.value === "add") {
         if (existsIdx >= 0) {
-          projectFormError.value = "项目 ID 已存在";
+          projectFormError.value = t("projects.error.idExists");
           return;
         }
         list.push({ id, name, slug_en: slug, timezone });
@@ -186,11 +188,11 @@ export default {
         const editingId = String(projectEditingId.value || "");
         const idx = list.findIndex((x) => String(x && x.id) === editingId);
         if (idx < 0) {
-          projectFormError.value = "未找到要修改的项目";
+          projectFormError.value = t("projects.error.notFound");
           return;
         }
         if (id !== editingId && existsIdx >= 0) {
-          projectFormError.value = "项目 ID 已存在";
+          projectFormError.value = t("projects.error.idExists");
           return;
         }
         list.splice(idx, 1, { ...(list[idx] || {}), id, name, slug_en: slug, timezone });
@@ -271,7 +273,7 @@ function formatDelta(cur, base) {
 }
 
 const improveSummaryText = computed(() => {
-  if (!improvements.value.length) return "—";
+  if (!improvements.value.length) return t("common.none");
   const first = improvements.value[0] || {};
   const last = improvements.value[improvements.value.length - 1] || {};
   const fm = first.metrics || {};
@@ -286,7 +288,13 @@ const improveSummaryText = computed(() => {
   const escapedCur = pickMetric(lm, "escaped_defects", null);
   const throughputBase = pickMetric(fm, "throughput", null);
   const throughputCur = pickMetric(lm, "throughput", null);
-  return `对比首条与最新：交付周期p50(${formatDelta(leadCur, leadBase)})，缺陷率(${formatDelta(bugCur, bugBase)})，重开率(${formatDelta(reopenCur, reopenBase)})，缺陷逃逸数量(${formatDelta(escapedCur, escapedBase)})，吞吐量(${formatDelta(throughputCur, throughputBase)})。`;
+  return t("projects.improveSummary", {
+    lead: formatDelta(leadCur, leadBase),
+    bug: formatDelta(bugCur, bugBase),
+    reopen: formatDelta(reopenCur, reopenBase),
+    escaped: formatDelta(escapedCur, escapedBase),
+    throughput: formatDelta(throughputCur, throughputBase)
+  });
 });
 
     const historyRows = computed(() =>
@@ -307,18 +315,19 @@ const improveSummaryText = computed(() => {
     }))
     );
 
-    const historyColumns = [
-  { title: "时间", dataIndex: "at", key: "at", width: 200 },
-  { title: "窗口", dataIndex: "window", key: "window", width: 140 },
-  { title: "行动项（完成/总数）", key: "plan", width: 160, customRender: ({ record }) => `${record.plan_done}/${record.plan_total}` },
-  { title: "交付周期p50", dataIndex: "lead_time_p50_days", key: "lead_time_p50_days", width: 120 },
-  { title: "缺陷率", dataIndex: "bug_rate", key: "bug_rate", width: 100 },
-  { title: "重开率", dataIndex: "reopen_rate", key: "reopen_rate", width: 100 },
-  { title: "缺陷逃逸率", dataIndex: "escaped_defects", key: "escaped_defects", width: 120 },
-  { title: "吞吐量", dataIndex: "throughput", key: "throughput", width: 100 }
-    ];
+    const historyColumns = computed(() => [
+      { title: t("projects.history.col.at"), dataIndex: "at", key: "at", width: 200 },
+      { title: t("projects.history.col.window"), dataIndex: "window", key: "window", width: 140 },
+      { title: t("projects.history.col.plan"), key: "plan", width: 170, customRender: ({ record }) => `${record.plan_done}/${record.plan_total}` },
+      { title: t("projects.history.col.lead"), dataIndex: "lead_time_p50_days", key: "lead_time_p50_days", width: 130 },
+      { title: t("projects.history.col.bug"), dataIndex: "bug_rate", key: "bug_rate", width: 110 },
+      { title: t("projects.history.col.reopen"), dataIndex: "reopen_rate", key: "reopen_rate", width: 110 },
+      { title: t("projects.history.col.escaped"), dataIndex: "escaped_defects", key: "escaped_defects", width: 130 },
+      { title: t("projects.history.col.throughput"), dataIndex: "throughput", key: "throughput", width: 110 }
+    ]);
 
     return {
+      t,
       projectsSafe,
       selectedProjectIdModel,
       projectLabel,

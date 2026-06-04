@@ -42,123 +42,123 @@
 
     <a-drawer v-model:visible="actionDrawerVisible" :title="actionDrawerTitle" placement="right" :width="560">
       <a-space direction="vertical" style="width: 100%" :size="12">
-        <a-card size="small" title="概览">
+        <a-card size="small" :title="t('plan.section.overview')">
           <a-space wrap>
             <a-tag color="blue">{{ actionDraft.id || "—" }}</a-tag>
             <a-tag :color="statusColor(actionDraft.status)">{{ statusText(actionDraft.status) }}</a-tag>
-            <a-tag :color="severityColor(actionDraft.severity)">严重性：{{ severityText(actionDraft.severity) }}</a-tag>
-            <a-tag color="default">负责人：{{ actionDraft.owner_role || "—" }}</a-tag>
+            <a-tag :color="severityColor(actionDraft.severity)">{{ t("plan.tag.severity") }}{{ severityText(actionDraft.severity) }}</a-tag>
+            <a-tag color="default">{{ t("plan.tag.owner") }}{{ actionDraft.owner_role || "—" }}</a-tag>
           </a-space>
           <a-descriptions size="small" :column="2" bordered style="margin-top: 10px">
-            <a-descriptions-item label="进度">{{ numOr0(actionDraft.progress) }}%</a-descriptions-item>
-            <a-descriptions-item label="最后更新">{{ actionDraft.last_update_at || "—" }}</a-descriptions-item>
-            <a-descriptions-item label="开始时间">{{ actionDraft.start_date || "—" }}</a-descriptions-item>
-            <a-descriptions-item label="截止时间">{{ actionDraft.due_date || "—" }}</a-descriptions-item>
-            <a-descriptions-item label="完成时间">{{ actionDraft.completed_date || "—" }}</a-descriptions-item>
+            <a-descriptions-item :label="t('plan.field.progress')">{{ numOr0(actionDraft.progress) }}%</a-descriptions-item>
+            <a-descriptions-item :label="t('plan.field.lastUpdate')">{{ actionDraft.last_update_at || "—" }}</a-descriptions-item>
+            <a-descriptions-item :label="t('plan.field.startDate')">{{ actionDraft.start_date || "—" }}</a-descriptions-item>
+            <a-descriptions-item :label="t('plan.field.dueDate')">{{ actionDraft.due_date || "—" }}</a-descriptions-item>
+            <a-descriptions-item :label="t('plan.field.completedDate')">{{ actionDraft.completed_date || "—" }}</a-descriptions-item>
             <a-descriptions-item label="—">—</a-descriptions-item>
           </a-descriptions>
         </a-card>
 
-        <a-card size="small" title="问题 → 原因" v-if="actionDrawerReadOnly">
+        <a-card size="small" :title="t('plan.section.problemCause')" v-if="actionDrawerReadOnly">
           <a-space direction="vertical" style="width: 100%" :size="8">
-            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">问题</div>
+            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">{{ t("plan.field.problem") }}</div>
             <div style="white-space: pre-wrap">{{ actionDraft.problem || "—" }}</div>
-            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">原因</div>
+            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">{{ t("plan.field.cause") }}</div>
             <div style="white-space: pre-wrap">{{ actionDraft.cause || "—" }}</div>
           </a-space>
         </a-card>
 
-        <a-card size="small" title="方案 → 预期 → 验收" v-if="actionDrawerReadOnly">
+        <a-card size="small" :title="t('plan.section.solutionExpectedAcceptance')" v-if="actionDrawerReadOnly">
           <a-space direction="vertical" style="width: 100%" :size="8">
-            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">解决方案</div>
+            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">{{ t("plan.field.solution") }}</div>
             <div style="white-space: pre-wrap">{{ actionDraft.solution || "—" }}</div>
-            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">预期效果</div>
+            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">{{ t("plan.field.expectedEffect") }}</div>
             <div style="white-space: pre-wrap">{{ actionDraft.expected_effect || "—" }}</div>
-            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">验收方式</div>
+            <div style="color: rgba(0, 0, 0, 0.45); font-size: 12px">{{ t("plan.field.acceptanceMethod") }}</div>
             <div style="white-space: pre-wrap">{{ actionDraft.acceptance_method || "—" }}</div>
           </a-space>
         </a-card>
 
-        <a-card size="small" title="实际效果" v-if="actionDrawerReadOnly">
+        <a-card size="small" :title="t('plan.section.actualEffect')" v-if="actionDrawerReadOnly">
           <div style="white-space: pre-wrap">{{ actionDraft.actual_effect || "—" }}</div>
         </a-card>
 
         <a-form v-if="!actionDrawerReadOnly" layout="vertical">
-          <a-card size="small" title="基础信息">
+          <a-card size="small" :title="t('plan.section.basicInfo')">
             <a-row :gutter="[12, 12]">
               <a-col :span="12">
-                <a-form-item label="编号">
+                <a-form-item :label="t('plan.field.id')">
                   <a-input v-model:value="actionDraft.id" />
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="负责人">
+                <a-form-item :label="t('plan.field.owner')">
                   <a-input v-model:value="actionDraft.owner_role" />
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="状态">
+                <a-form-item :label="t('plan.field.status')">
                   <a-select v-model:value="actionDraft.status">
-                    <a-select-option value="not_started">未开始</a-select-option>
-                    <a-select-option value="in_progress">进行中</a-select-option>
-                    <a-select-option value="done">已完成</a-select-option>
-                    <a-select-option value="canceled">已取消</a-select-option>
-                    <a-select-option value="blocked">阻塞</a-select-option>
+                    <a-select-option value="not_started">{{ t("status.not_started") }}</a-select-option>
+                    <a-select-option value="in_progress">{{ t("status.in_progress") }}</a-select-option>
+                    <a-select-option value="done">{{ t("status.done") }}</a-select-option>
+                    <a-select-option value="canceled">{{ t("status.canceled") }}</a-select-option>
+                    <a-select-option value="blocked">{{ t("status.blocked") }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="严重性">
+                <a-form-item :label="t('plan.field.severity')">
                   <a-select v-model:value="actionDraft.severity">
-                    <a-select-option value="high">高</a-select-option>
-                    <a-select-option value="medium">中</a-select-option>
-                    <a-select-option value="low">低</a-select-option>
+                    <a-select-option value="high">{{ t("severity.high") }}</a-select-option>
+                    <a-select-option value="medium">{{ t("severity.medium") }}</a-select-option>
+                    <a-select-option value="low">{{ t("severity.low") }}</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="进度（0-100）">
+                <a-form-item :label="t('plan.field.progressRange')">
                   <a-input-number v-model:value="actionDraft.progress" :min="0" :max="100" style="width: 100%" />
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="开始时间（YYYY-MM-DD）">
-                  <a-input v-model:value="actionDraft.start_date" placeholder="YYYY-MM-DD" />
+                <a-form-item :label="t('plan.field.startDateWithFormat')">
+                  <a-input v-model:value="actionDraft.start_date" :placeholder="t('plan.placeholder.date')"/>
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="截止时间（YYYY-MM-DD）">
-                  <a-input v-model:value="actionDraft.due_date" placeholder="YYYY-MM-DD" />
+                <a-form-item :label="t('plan.field.dueDateWithFormat')">
+                  <a-input v-model:value="actionDraft.due_date" :placeholder="t('plan.placeholder.date')"/>
                 </a-form-item>
               </a-col>
               <a-col :span="12">
-                <a-form-item label="完成时间（YYYY-MM-DD）">
-                  <a-input v-model:value="actionDraft.completed_date" placeholder="YYYY-MM-DD" />
+                <a-form-item :label="t('plan.field.completedDateWithFormat')">
+                  <a-input v-model:value="actionDraft.completed_date" :placeholder="t('plan.placeholder.date')"/>
                 </a-form-item>
               </a-col>
             </a-row>
           </a-card>
 
-          <a-card size="small" title="问题与方案">
-            <a-form-item label="问题">
+          <a-card size="small" :title="t('plan.section.problemSolution')">
+            <a-form-item :label="t('plan.field.problem')">
               <a-textarea v-model:value="actionDraft.problem" :rows="3" />
             </a-form-item>
-            <a-form-item label="原因">
+            <a-form-item :label="t('plan.field.cause')">
               <a-textarea v-model:value="actionDraft.cause" :rows="3" />
             </a-form-item>
-            <a-form-item label="解决方案">
+            <a-form-item :label="t('plan.field.solution')">
               <a-textarea v-model:value="actionDraft.solution" :rows="3" />
             </a-form-item>
           </a-card>
 
-          <a-card size="small" title="验收与效果">
-            <a-form-item label="预期效果">
+          <a-card size="small" :title="t('plan.section.acceptanceEffect')">
+            <a-form-item :label="t('plan.field.expectedEffect')">
               <a-textarea v-model:value="actionDraft.expected_effect" :rows="2" />
             </a-form-item>
-            <a-form-item label="验收方式">
+            <a-form-item :label="t('plan.field.acceptanceMethod')">
               <a-textarea v-model:value="actionDraft.acceptance_method" :rows="2" />
             </a-form-item>
-            <a-form-item label="实际效果（执行后填写）">
+            <a-form-item :label="t('plan.field.actualEffectAfter')">
               <a-textarea v-model:value="actionDraft.actual_effect" :rows="2" />
             </a-form-item>
           </a-card>
@@ -202,7 +202,7 @@ export default {
     function projectLabel(p, idx) {
       const id = p && p.id !== undefined && p.id !== null ? String(p.id).trim() : "";
       const name = p && p.name !== undefined && p.name !== null ? String(p.name).trim() : "";
-      return `${id || String(idx + 1)} · ${name || "未命名"}`;
+      return `${id || String(idx + 1)} · ${name || t("common.unnamed")}`;
     }
 
     function numOr0(v) {
@@ -245,16 +245,16 @@ export default {
 
     async function fetchJson(url) {
       const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error(`${url}（${res.status}）`);
+      if (!res.ok) throw new Error(t("analysis.error.http", { url, status: res.status }));
       const parsed = await res.json();
-      if (!parsed || typeof parsed !== "object") throw new Error(`${url} 不是对象`);
+      if (!parsed || typeof parsed !== "object") throw new Error(t("analysis.error.notObject", { url }));
       return parsed;
     }
 
     async function fetchJsonOptional(url) {
       const res = await fetch(url, { cache: "no-store" });
       if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`${url}（${res.status}）`);
+      if (!res.ok) throw new Error(t("analysis.error.http", { url, status: res.status }));
       const parsed = await res.json();
       return parsed && typeof parsed === "object" ? parsed : null;
     }
@@ -350,15 +350,15 @@ function severityColor(severity) {
   return "default";
 }
 
-const planColumns = [
-  { title: "编号", dataIndex: "id", key: "id", width: 100 },
-  { title: "问题", dataIndex: "problem", key: "problem", width: 320 },
-  { title: "负责人", dataIndex: "owner_role", key: "owner_role", width: 140 },
-  { title: "截止", dataIndex: "due_date", key: "due_date", width: 120 },
-  { title: "状态", dataIndex: "status", key: "status", width: 110 },
-  { title: "进度", dataIndex: "progress", key: "progress", width: 140 },
-  { title: "操作", key: "op", width: 220 }
-];
+const planColumns = computed(() => [
+  { title: t("plan.col.id"), dataIndex: "id", key: "id", width: 100 },
+  { title: t("plan.col.problem"), dataIndex: "problem", key: "problem", width: 320 },
+  { title: t("plan.col.owner"), dataIndex: "owner_role", key: "owner_role", width: 140 },
+  { title: t("plan.col.due"), dataIndex: "due_date", key: "due_date", width: 120 },
+  { title: t("plan.col.status"), dataIndex: "status", key: "status", width: 110 },
+  { title: t("plan.col.progress"), dataIndex: "progress", key: "progress", width: 140 },
+  { title: t("plan.col.op"), key: "op", width: 220 }
+]);
 
 const actionDrawerVisible = ref(false);
 const actionDrawerMode = ref("detail");
@@ -464,7 +464,7 @@ const planSummaryText = computed(() => {
   const total = items.length;
   const done = items.filter((x) => x.status === "done").length;
   const inProgress = items.filter((x) => x.status === "in_progress").length;
-  return `行动项：完成 ${done}/${total}，进行中 ${inProgress}`;
+  return t("plan.summary", { done, total, inProgress });
 });
 
 const improvements = ref([]);

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="420" viewBox="0 0 1400 420" role="img" aria-label="基線引き上げ：コード観点で段階的に">
+  <rect x="0" y="0" width="1400" height="420" fill="#ffffff" />
+  <text x="700" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">コード観点で基線を段階的に引き上げる</text>
+
+  <rect x="70" y="70" width="1260" height="320" rx="14" fill="#fafafa" stroke="#f0f0f0" />
+
+  <path d="M120 372 L120 300 L400 300 L400 220 L700 220 L700 140 L1040 140 L1040 60 L1340 60" fill="none" stroke="#8c8c8c" stroke-width="3" />
+  <path d="M1340 60 L1328 54 L1328 66 Z" fill="#8c8c8c" />
+
+  <rect x="140" y="300" width="260" height="72" rx="12" fill="#fff1f0" stroke="#ffa39e" />
+  <text x="270" y="332" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">L1：コードの臭いを除去</text>
+  <text x="270" y="354" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#a8071a">整潔さ / SOLID / DRY</text>
+
+  <rect x="420" y="220" width="280" height="72" rx="12" fill="#fff7e6" stroke="#ffd591" />
+  <text x="560" y="252" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad4e00">L2：自動テストを追加</text>
+  <text x="560" y="274" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#ad4e00">コア規則 / 重要境界</text>
+
+  <rect x="720" y="140" width="320" height="72" rx="12" fill="#f6ffed" stroke="#b7eb8f" />
+  <text x="880" y="172" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#237804">L3：クリーンコード/アーキ</text>
+  <text x="880" y="194" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#237804">依存方向 / 境界明確</text>
+
+  <rect x="1000" y="60" width="320" height="72" rx="12" fill="#e6f7ff" stroke="#91d5ff" />
+  <text x="1160" y="92" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3">L4：パターン分析と根因施策</text>
+  <text x="1160" y="114" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#0050b3">再利用性 / 一貫性 / 仕組み化</text>
+
+  <text x="110" y="110" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="11" fill="#595959">意味：下限能力を仕組み化し、配信と品質を安定化</text>
+</svg>

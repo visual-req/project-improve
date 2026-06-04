@@ -10,22 +10,22 @@
 ## Language
 
 - 中文（当前）：[README.md](./README.md)
-- English: [README.en.md](./README.en.md)
-- 日本語: [README.ja.md](./README.ja.md)
+- English: [README.en-US.md](./README.en-US.md)
+- 日本語: [README.ja-JP.md](./README.ja-JP.md)
 
 ## 阅读入口
 
-- 快速开始（必读）：[docs/getting-started.md](./docs/getting-started.md)
-- 首次配置（必读）：[docs/config.md](./docs/config.md)
-- 使用手册（建议先看）：[docs/manual.md](./docs/manual.md)
-- 常见问题（遇到报错先看）：[docs/troubleshooting.md](./docs/troubleshooting.md)
-- English docs: [docs/getting-started.en.md](./docs/getting-started.en.md)
-- 日本語 docs: [docs/getting-started.ja.md](./docs/getting-started.ja.md)
+- 快速开始（必读）：[docs/zh-CN/getting-started.md](./docs/zh-CN/getting-started.md)
+- 首次配置（必读）：[docs/zh-CN/config.md](./docs/zh-CN/config.md)
+- 使用手册（建议先看）：[docs/zh-CN/manual.md](./docs/zh-CN/manual.md)
+- 常见问题（遇到报错先看）：[docs/zh-CN/troubleshooting.md](./docs/zh-CN/troubleshooting.md)
+- English docs: [docs/en-US/getting-started.md](./docs/en-US/getting-started.md)
+- 日本語 docs: [docs/ja-JP/getting-started.md](./docs/ja-JP/getting-started.md)
 - 总入口（Skill）：[skill/SKILL.md](./skill/SKILL.md)
-- 概念与方法论（ORID/PDCA/反模式/行动项）：[docs/concept.md](./docs/concept.md)
-- 指标体系与分组：[docs/metrics.md](./docs/metrics.md)
-- 工作流说明：[docs/workflow.md](./docs/workflow.md)
-- 命令说明：[docs/commands.md](./docs/commands.md)
+- 概念与方法论（ORID/PDCA/反模式/行动项）：[docs/zh-CN/concept.md](./docs/zh-CN/concept.md)
+- 指标体系与分组：[docs/zh-CN/metrics.md](./docs/zh-CN/metrics.md)
+- 工作流说明：[docs/zh-CN/workflow.md](./docs/zh-CN/workflow.md)
+- 命令说明：[docs/zh-CN/commands.md](./docs/zh-CN/commands.md)
 
 ## 快速启动
 

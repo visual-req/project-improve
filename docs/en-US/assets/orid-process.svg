@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="220" viewBox="0 0 960 220" role="img" aria-label="ORID process">
+  <rect x="0" y="0" width="960" height="220" fill="#ffffff" />
+  <rect x="40" y="70" width="200" height="80" rx="12" fill="#f6ffed" stroke="#b7eb8f" />
+  <text x="140" y="110" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="22" fill="#237804">O</text>
+  <text x="140" y="134" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#237804">Objective (Facts)</text>
+
+  <rect x="270" y="70" width="200" height="80" rx="12" fill="#e6f7ff" stroke="#91d5ff" />
+  <text x="370" y="110" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="22" fill="#0050b3">R</text>
+  <text x="370" y="134" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#0050b3">Reflective (Feelings)</text>
+
+  <rect x="500" y="70" width="200" height="80" rx="12" fill="#fff7e6" stroke="#ffd591" />
+  <text x="600" y="110" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="22" fill="#ad4e00">I</text>
+  <text x="600" y="134" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#ad4e00">Interpretive (Hypotheses)</text>
+
+  <rect x="730" y="70" width="200" height="80" rx="12" fill="#fff1f0" stroke="#ffa39e" />
+  <text x="830" y="110" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="22" fill="#a8071a">D</text>
+  <text x="830" y="134" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#a8071a">Decisional (Actions)</text>
+
+  <path d="M240 110 L270 110" stroke="#8c8c8c" stroke-width="2" />
+  <path d="M470 110 L500 110" stroke="#8c8c8c" stroke-width="2" />
+  <path d="M700 110 L730 110" stroke="#8c8c8c" stroke-width="2" />
+
+  <path d="M260 110 L250 104 L250 116 Z" fill="#8c8c8c" />
+  <path d="M490 110 L480 104 L480 116 Z" fill="#8c8c8c" />
+  <path d="M720 110 L710 104 L710 116 Z" fill="#8c8c8c" />
+
+  <text x="480" y="32" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">Start from verifiable facts → align on shared feelings → propose testable hypotheses → execute measurable actions</text>
+</svg>

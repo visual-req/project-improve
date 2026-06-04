@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-label="ガント：依存とクリティカルパスで阻害要因">
+  <rect x="0" y="0" width="960" height="420" fill="#ffffff" />
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">ガント：依存関係とクリティカルパスで阻害要因を発見（外部依存/競合/門禁）</text>
+
+  <rect x="40" y="70" width="880" height="320" rx="12" fill="#fafafa" stroke="#f0f0f0" />
+
+  <text x="90" y="118" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">要件明確化</text>
+  <text x="90" y="166" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">開発実装</text>
+  <text x="90" y="214" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">結合/テスト</text>
+  <text x="90" y="262" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">リリース</text>
+
+  <path d="M220 90 L220 360" stroke="#e0e0e0" />
+  <path d="M360 90 L360 360" stroke="#e0e0e0" />
+  <path d="M500 90 L500 360" stroke="#e0e0e0" />
+  <path d="M640 90 L640 360" stroke="#e0e0e0" />
+  <path d="M780 90 L780 360" stroke="#e0e0e0" />
+
+  <text x="220" y="382" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">W1</text>
+  <text x="360" y="382" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">W2</text>
+  <text x="500" y="382" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">W3</text>
+  <text x="640" y="382" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">W4</text>
+  <text x="780" y="382" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">W5</text>
+
+  <rect x="220" y="102" width="220" height="26" rx="8" fill="#fff7e6" stroke="#ffd591" />
+  <text x="330" y="120" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#ad4e00">要件明確化</text>
+
+  <rect x="360" y="150" width="360" height="26" rx="8" fill="#e6f7ff" stroke="#91d5ff" />
+  <text x="540" y="168" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#0050b3">開発実装</text>
+
+  <rect x="520" y="198" width="260" height="26" rx="8" fill="#f6ffed" stroke="#b7eb8f" />
+  <text x="650" y="216" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#237804">結合/テスト</text>
+
+  <rect x="720" y="246" width="160" height="26" rx="8" fill="#fff1f0" stroke="#ffa39e" />
+  <text x="800" y="264" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#a8071a">リリース</text>
+
+  <path d="M440 115 L360 163" stroke="#8c8c8c" stroke-width="2" />
+  <path d="M720 163 L520 211" stroke="#8c8c8c" stroke-width="2" />
+  <path d="M780 211 L720 259" stroke="#8c8c8c" stroke-width="2" />
+
+  <rect x="560" y="286" width="320" height="72" rx="10" fill="#f9f0ff" stroke="#d3adf7" />
+  <text x="720" y="312" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#531dab">クリティカルパス阻害</text>
+  <text x="720" y="334" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#531dab">外部依存遅延/品質門禁/リソース競合</text>
+  <text x="720" y="356" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#531dab">提案：前倒し合意、依存分割、受入門禁定義</text>
+</svg>

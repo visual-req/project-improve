@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="カバレッジとSonar：品質門禁で阻害要因">
+  <rect x="0" y="0" width="960" height="360" fill="#ffffff" />
+  <text x="480" y="34" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" fill="#262626">カバレッジとSonar：品質門禁で阻害要因を発見（テスト容易性/入口基準/自動化）</text>
+
+  <rect x="60" y="70" width="400" height="250" rx="12" fill="#f6ffed" stroke="#b7eb8f" />
+  <text x="260" y="104" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#237804">テストカバレッジ</text>
+  <rect x="100" y="130" width="320" height="18" rx="9" fill="#e8e8e8" />
+  <rect x="100" y="130" width="120" height="18" rx="9" fill="#ff4d4f" />
+  <text x="260" y="165" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">長期停滞→テスト容易性低/結合高/テスト用IF不足</text>
+  <rect x="100" y="182" width="320" height="94" rx="10" fill="#ffffff" stroke="#d9d9d9" />
+  <text x="120" y="208" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">阻害要因の特定</text>
+  <text x="120" y="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- テスト困難（依存多/層なし）</text>
+  <text x="120" y="252" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- テスト基盤不足（mock/fixture）</text>
+  <text x="120" y="274" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- CI遅すぎてテストがスキップ</text>
+
+  <rect x="500" y="70" width="400" height="250" rx="12" fill="#e6f7ff" stroke="#91d5ff" />
+  <text x="700" y="104" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" fill="#0050b3">Sonarスキャン/品質門禁</text>
+  <rect x="540" y="130" width="320" height="18" rx="9" fill="#e8e8e8" />
+  <rect x="540" y="130" width="220" height="18" rx="9" fill="#faad14" />
+  <text x="700" y="165" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">新規問題増加→入口基準弱/焦点ずれ/自動化不足</text>
+  <rect x="540" y="182" width="320" height="94" rx="10" fill="#ffffff" stroke="#d9d9d9" />
+  <text x="560" y="208" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#262626">阻害要因の特定</text>
+  <text x="560" y="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- PRにスキャン結果を紐付けない</text>
+  <text x="560" y="252" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- DoD欠如（『新規blockerなし』なし）</text>
+  <text x="560" y="274" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="12" fill="#595959">- CI不安定（失敗/リトライ多発）</text>
+</svg>

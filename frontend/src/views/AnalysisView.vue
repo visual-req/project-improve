@@ -91,11 +91,11 @@ export default {
 
 async function fetchJson(url) {
   const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`${url}（${res.status}）`);
+  if (!res.ok) throw new Error(t("analysis.error.http", { url, status: res.status }));
   const contentType = String(res.headers.get("content-type") || "").toLowerCase();
   try {
     const parsed = await res.json();
-    if (!parsed || typeof parsed !== "object") throw new Error(`${url} 不是对象`);
+    if (!parsed || typeof parsed !== "object") throw new Error(t("analysis.error.notObject", { url }));
     return parsed;
   } catch (e) {
     let head = "";
@@ -103,19 +103,19 @@ async function fetchJson(url) {
       const text = await res.text();
       head = String(text || "").slice(0, 160);
     } catch {}
-    const hint = contentType.includes("text/html") || head.includes("<!doctype") || head.includes("<html") ? "（返回了 HTML，可能服务走了 SPA fallback / 端口不对）" : "";
-    throw new Error(`${url} JSON 解析失败${hint}`);
+    const hint = contentType.includes("text/html") || head.includes("<!doctype") || head.includes("<html") ? t("analysis.error.htmlHint") : "";
+    throw new Error(t("analysis.error.jsonParseFailed", { url, hint }));
   }
 }
 
 async function fetchJsonOptional(url) {
   const res = await fetch(url, { cache: "no-store" });
   if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`${url}（${res.status}）`);
+  if (!res.ok) throw new Error(t("analysis.error.http", { url, status: res.status }));
   const contentType = String(res.headers.get("content-type") || "").toLowerCase();
   try {
     const parsed = await res.json();
-    if (!parsed || typeof parsed !== "object") throw new Error(`${url} 不是对象`);
+    if (!parsed || typeof parsed !== "object") throw new Error(t("analysis.error.notObject", { url }));
     return parsed;
   } catch {
     let head = "";
@@ -123,8 +123,8 @@ async function fetchJsonOptional(url) {
       const text = await res.text();
       head = String(text || "").slice(0, 160);
     } catch {}
-    const hint = contentType.includes("text/html") || head.includes("<!doctype") || head.includes("<html") ? "（返回了 HTML，可能服务走了 SPA fallback / 端口不对）" : "";
-    throw new Error(`${url} JSON 解析失败${hint}`);
+    const hint = contentType.includes("text/html") || head.includes("<!doctype") || head.includes("<html") ? t("analysis.error.htmlHint") : "";
+    throw new Error(t("analysis.error.jsonParseFailed", { url, hint }));
   }
 }
 
@@ -169,7 +169,7 @@ const errorText = ref("");
 function projectLabel(p, idx) {
   const id = p && p.id !== undefined && p.id !== null ? String(p.id).trim() : "";
   const name = p && p.name !== undefined && p.name !== null ? String(p.name).trim() : "";
-  return `${id || String(idx + 1)} · ${name || "未命名"}`;
+  return `${id || String(idx + 1)} · ${name || t("common.unnamed")}`;
 }
 
 const collectHasRaw = ref(false);
@@ -263,10 +263,10 @@ function persistCachedOutputs(pid) {
   } catch {}
 }
 
-const simpleCountColumns = [
-  { title: "分类", dataIndex: "label", key: "label" },
-  { title: "数量", dataIndex: "count", key: "count", width: 90 }
-];
+const simpleCountColumns = computed(() => [
+  { title: t("analysis.collect.simpleCount.category"), dataIndex: "label", key: "label" },
+  { title: t("analysis.collect.simpleCount.count"), dataIndex: "count", key: "count", width: 90 }
+]);
 
 const DEFAULT_ENABLED_KEYS = [
   "throughput",
@@ -342,11 +342,11 @@ const requiredSources = computed(() => requiredSourcesFromMetrics(enabledMetricK
 const requiredSourceTags = computed(() => {
   const s = requiredSources.value || {};
   const tags = [];
-  if (s.jira) tags.push("Jira 工作项");
-  if (s.git_commits) tags.push("Git 提交");
-  if (s.git_pull_requests) tags.push("PR/评审");
-  if (s.ci_runs) tags.push("CI");
-  return tags.length ? tags : ["Jira 工作项"];
+  if (s.jira) tags.push(t("analysis.source.jira"));
+  if (s.git_commits) tags.push(t("analysis.source.gitCommits"));
+  if (s.git_pull_requests) tags.push(t("analysis.source.gitPRs"));
+  if (s.ci_runs) tags.push(t("analysis.source.ci"));
+  return tags.length ? tags : [t("analysis.source.jira")];
 });
 const requiredSourcesText = computed(() => requiredSourceTags.value.join(" + "));
 
@@ -412,9 +412,9 @@ function computeBurndown(planning) {
   let verdict = "";
   const last = series.length ? series[series.length - 1] : null;
   if (last && Number.isFinite(last.remaining_points) && Number.isFinite(last.ideal_remaining_points)) {
-    if (last.remaining_points <= last.ideal_remaining_points) verdict = "领先";
-    else if (last.remaining_points <= last.ideal_remaining_points + 2) verdict = "合理";
-    else verdict = "偏慢";
+    if (last.remaining_points <= last.ideal_remaining_points) verdict = "ahead";
+    else if (last.remaining_points <= last.ideal_remaining_points + 2) verdict = "ok";
+    else verdict = "slow";
   }
   return {
     sprint: { start_date: String(sprint.start_date || ""), end_date: String(sprint.end_date || ""), total_points: sprint.total_points ?? null },
@@ -431,7 +431,7 @@ function computeGantt(planning) {
     const plannedEnd = t && t.planned_end ? String(t.planned_end) : "";
     const actualEnd = t && t.actual_end ? String(t.actual_end) : "";
     const delay = plannedEnd && actualEnd ? Math.max(0, daysBetween(plannedEnd, actualEnd) || 0) : 0;
-    const risky = plannedEnd && !actualEnd && (daysBetween(plannedEnd, nowIso) || 0) > 0;
+    const risky = !!(plannedEnd && !actualEnd && (daysBetween(plannedEnd, nowIso) || 0) > 0);
     return {
       key: String(t && t.id ? t.id : idx),
       id: t && t.id ? String(t.id) : "",
@@ -440,11 +440,11 @@ function computeGantt(planning) {
       planned_end: plannedEnd,
       actual_end: actualEnd,
       delay_days: delay,
-      risky: risky ? "是" : "否"
+      risky
     };
   });
   const delayedCount = tasks.filter((x) => (x.delay_days || 0) > 0).length;
-  const riskyCount = tasks.filter((x) => x.risky === "是").length;
+  const riskyCount = tasks.filter((x) => x.risky === true).length;
   return { tasks, delayed_count: delayedCount, risky_count: riskyCount };
 }
 
@@ -468,7 +468,7 @@ async function loadCollectOutputs() {
       }
       const isHtml = contentType.includes("text/html") || (parsed === null && contentType && !contentType.includes("json"));
       if (isHtml || !parsed || typeof parsed !== "object") {
-        collectError.value = "raw.json 解析失败（可能服务返回了 HTML 或数据不完整）";
+        collectError.value = t("analysis.collect.error.rawParseFailed");
         persistCachedOutputs(pid);
         return;
       } else {

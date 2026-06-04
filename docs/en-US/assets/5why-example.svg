@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="640" viewBox="0 0 1100 640">
+  <defs>
+    <style>
+      .title { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .text { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .muted { font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #595959; }
+      .box { fill: #ffffff; stroke: #d9d9d9; stroke-width: 1; }
+      .bad { fill: #fff1f0; stroke: #ffccc7; }
+      .good { fill: #f6ffed; stroke: #b7eb8f; }
+      .mid { fill: #e6f4ff; stroke: #91caff; }
+      .arrow { stroke: #8c8c8c; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { stroke-dasharray: 6 6; }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8c8c8c" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="640" fill="#ffffff" />
+  <text x="24" y="42" class="title">5 Whys Example: Ineffective Code Reviews (why mechanical questioning fails)</text>
+  <text x="24" y="70" class="muted">Key point: the real root cause is excessive code complexity, which amplifies misunderstanding and domain unfamiliarity. A single-chain "why" often drifts.</text>
+
+  <rect x="24" y="100" width="520" height="500" rx="14" class="box bad" />
+  <text x="44" y="132" class="text">Mechanical 5 Whys (single chain, easy to mislead)</text>
+  <text x="44" y="158" class="muted">Symptom: ineffective code reviews (defects leak, high rework, high change risk)</text>
+
+  <rect x="64" y="190" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="224" class="text">Why 1: reviewers fail to catch issues</text>
+
+  <path d="M284,246 L284,270" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="272" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="306" class="text">Why 2: reviewers focus on style/surface</text>
+
+  <path d="M284,328 L284,352" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="354" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="388" class="text">Why 3: not enough review time</text>
+
+  <path d="M284,410 L284,434" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="436" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="470" class="text">Why 4: people are too busy / too many tasks</text>
+
+  <path d="M284,492 L284,516" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="518" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="552" class="text">Why 5: lack of capability → "train harder / be more careful"</text>
+
+  <text x="44" y="592" class="muted">Problem: simplifies a complex system into one cause; actions land on individuals and do not sustain.</text>
+
+  <rect x="556" y="100" width="520" height="500" rx="14" class="box good" />
+  <text x="576" y="132" class="text">Cause tree / multi-path analysis (closer to reality)</text>
+  <text x="576" y="158" class="muted">From the same symptom, branch out: complexity, understanding/context, domain familiarity, tools/information (complexity is the core)</text>
+
+  <rect x="596" y="190" width="440" height="56" rx="10" class="box mid" />
+  <text x="616" y="224" class="text">Symptom: ineffective code reviews</text>
+
+  <path d="M816,246 C760,290 710,315 650,340" class="arrow" marker-end="url(#arrowHead)" />
+  <path d="M816,246 C860,290 910,315 980,340" class="arrow dash" marker-end="url(#arrowHead)" />
+  <path d="M816,246 C780,320 770,355 760,392" class="arrow dash" marker-end="url(#arrowHead)" />
+
+  <rect x="586" y="342" width="300" height="64" rx="10" class="box" />
+  <text x="606" y="370" class="text">Core root cause: excessive code complexity</text>
+  <text x="606" y="392" class="muted">- Deep abstraction / high coupling / heavy cognitive load</text>
+
+  <rect x="900" y="342" width="176" height="64" rx="10" class="box" />
+  <text x="920" y="370" class="text">Amplifier: domain unfamiliarity</text>
+  <text x="920" y="392" class="muted">- Hard to judge business correctness</text>
+
+  <rect x="700" y="400" width="320" height="78" rx="10" class="box" />
+  <text x="720" y="428" class="text">Amplifier: insufficient understanding/context</text>
+  <text x="720" y="450" class="muted">- Missing design/context; reviewers cannot fully understand</text>
+  <text x="720" y="470" class="muted">- Unclear blast radius (missing risk hints/observability)</text>
+
+  <path d="M736,406 C700,452 660,485 630,520" class="arrow" marker-end="url(#arrowHead)" />
+  <path d="M988,406 C980,452 950,485 920,520" class="arrow dash" marker-end="url(#arrowHead)" />
+  <path d="M860,478 C840,510 820,530 800,548" class="arrow dash" marker-end="url(#arrowHead)" />
+
+  <rect x="566" y="520" width="280" height="68" rx="10" class="box" />
+  <text x="586" y="548" class="text">Actionable leverage points (examples)</text>
+  <text x="586" y="570" class="muted">- Reduce complexity: split modules / decouple / add design notes</text>
+
+  <rect x="860" y="520" width="220" height="68" rx="10" class="box" />
+  <text x="880" y="548" class="text">Verifiable leverage points (examples)</text>
+  <text x="880" y="570" class="muted">- Involve domain experts + change risk checklist</text>
+</svg>

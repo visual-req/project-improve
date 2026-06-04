@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="640" viewBox="0 0 1100 640">
+  <defs>
+    <style>
+      .title { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .text { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .muted { font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #595959; }
+      .box { fill: #ffffff; stroke: #d9d9d9; stroke-width: 1; }
+      .bad { fill: #fff1f0; stroke: #ffccc7; }
+      .good { fill: #f6ffed; stroke: #b7eb8f; }
+      .mid { fill: #e6f4ff; stroke: #91caff; }
+      .arrow { stroke: #8c8c8c; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { stroke-dasharray: 6 6; }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8c8c8c" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="640" fill="#ffffff" />
+  <text x="24" y="42" class="title">5 Whys 例：コードレビューが機能しない（機械的な追問が失敗する理由）</text>
+  <text x="24" y="70" class="muted">ポイント：真の根因は「コードの複雑さが高すぎる」こと。理解のずれやドメイン不慣れを増幅し、単一路線の『Why』は逸れやすい。</text>
+
+  <rect x="24" y="100" width="520" height="500" rx="14" class="box bad" />
+  <text x="44" y="132" class="text">機械的5 Whys（単一路線で誤導しやすい）</text>
+  <text x="44" y="158" class="muted">現象：コードレビューが機能しない（欠陥流入、手戻り増、変更リスク大）</text>
+
+  <rect x="64" y="190" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="224" class="text">Why 1：レビューで問題を見つけられない</text>
+
+  <path d="M284,246 L284,270" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="272" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="306" class="text">Why 2：体裁/表面だけを見る</text>
+
+  <path d="M284,328 L284,352" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="354" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="388" class="text">Why 3：レビュー時間が不足</text>
+
+  <path d="M284,410 L284,434" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="436" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="470" class="text">Why 4：忙しすぎる/タスク過多</text>
+
+  <path d="M284,492 L284,516" class="arrow" marker-end="url(#arrowHead)" />
+  <rect x="64" y="518" width="440" height="56" rx="10" class="box" />
+  <text x="84" y="552" class="text">Why 5：能力不足 → 「研修強化/もっと注意」</text>
+
+  <text x="44" y="592" class="muted">問題：複雑なシステム問題を単一原因に単純化し、個人対応に落ちて継続しない。</text>
+
+  <rect x="556" y="100" width="520" height="500" rx="14" class="box good" />
+  <text x="576" y="132" class="text">原因ツリー/多経路分析（より現実に近い）</text>
+  <text x="576" y="158" class="muted">同じ現象から分岐：複雑度、理解/コンテキスト、ドメイン熟知、ツール/情報（核は複雑度）</text>
+
+  <rect x="596" y="190" width="440" height="56" rx="10" class="box mid" />
+  <text x="616" y="224" class="text">現象：コードレビューが機能しない</text>
+
+  <path d="M816,246 C760,290 710,315 650,340" class="arrow" marker-end="url(#arrowHead)" />
+  <path d="M816,246 C860,290 910,315 980,340" class="arrow dash" marker-end="url(#arrowHead)" />
+  <path d="M816,246 C780,320 770,355 760,392" class="arrow dash" marker-end="url(#arrowHead)" />
+
+  <rect x="586" y="342" width="300" height="64" rx="10" class="box" />
+  <text x="606" y="370" class="text">核となる根因：コードの複雑度が高すぎる</text>
+  <text x="606" y="392" class="muted">- 抽象が深い/結合が高い/認知負荷が大きい</text>
+
+  <rect x="900" y="342" width="176" height="64" rx="10" class="box" />
+  <text x="920" y="370" class="text">増幅要因：ドメイン不慣れ</text>
+  <text x="920" y="392" class="muted">- 業務的な正しさを判断しづらい</text>
+
+  <rect x="700" y="400" width="320" height="78" rx="10" class="box" />
+  <text x="720" y="428" class="text">増幅要因：理解/コンテキスト不足</text>
+  <text x="720" y="450" class="muted">- 設計説明/コンテキスト不足で理解が追いつかない</text>
+  <text x="720" y="470" class="muted">- 影響範囲が不明（リスク提示/可観測性不足）</text>
+
+  <path d="M736,406 C700,452 660,485 630,520" class="arrow" marker-end="url(#arrowHead)" />
+  <path d="M988,406 C980,452 950,485 920,520" class="arrow dash" marker-end="url(#arrowHead)" />
+  <path d="M860,478 C840,510 820,530 800,548" class="arrow dash" marker-end="url(#arrowHead)" />
+
+  <rect x="566" y="520" width="280" height="68" rx="10" class="box" />
+  <text x="586" y="548" class="text">実行可能なレバー（例）</text>
+  <text x="586" y="570" class="muted">- 複雑度を下げる：分割/疎結合/設計説明追加</text>
+
+  <rect x="860" y="520" width="220" height="68" rx="10" class="box" />
+  <text x="880" y="548" class="text">検証可能なレバー（例）</text>
+  <text x="880" y="570" class="muted">- ドメイン有識者の参加 + 変更リスクチェックリスト</text>
+</svg>

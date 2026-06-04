@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420">
+  <defs>
+    <style>
+      .title { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .text { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #262626; }
+      .muted { font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; fill: #595959; }
+      .box { fill: #ffffff; stroke: #d9d9d9; stroke-width: 1; }
+      .arrow { stroke: #8c8c8c; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .p { fill: #e6f4ff; stroke: #91caff; }
+      .d { fill: #f6ffed; stroke: #b7eb8f; }
+      .c { fill: #fff7e6; stroke: #ffd591; }
+      .a { fill: #fff1f0; stroke: #ffccc7; }
+    </style>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8c8c8c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="420" fill="#ffffff"/>
+  <text x="24" y="42" class="title">PDCA 継続的改善ループ</text>
+  <text x="24" y="70" class="muted">「問題発見」を「検証可能なプロセス改善」に変える：目標定義 → 変更実施 → データ検証 → 定着または修正</text>
+
+  <rect x="90" y="110" width="320" height="110" rx="14" class="box p"/>
+  <text x="120" y="145" class="text">P (Plan)</text>
+  <text x="120" y="172" class="muted">- 課題と目標を明確化（指標/閾値/期間）</text>
+  <text x="120" y="193" class="muted">- 改善案と受け入れ基準を定義</text>
+  <text x="120" y="214" class="muted">- リスク/依存/データ欠落を明記</text>
+
+  <rect x="570" y="110" width="320" height="110" rx="14" class="box d"/>
+  <text x="600" y="145" class="text">D (Do)</text>
+  <text x="600" y="172" class="muted">- 最小実行可能な変更（プロセス/ツール/自動化）</text>
+  <text x="600" y="193" class="muted">- 実行結果と乖離を記録</text>
+  <text x="600" y="214" class="muted">- リズム維持・ロールバック可能に</text>
+
+  <rect x="570" y="250" width="320" height="110" rx="14" class="box c"/>
+  <text x="600" y="285" class="text">C (Check)</text>
+  <text x="600" y="312" class="muted">- 期間比較で指標変化を検証</text>
+  <text x="600" y="333" class="muted">- サンプリング監査/プロセスチェックポイント</text>
+  <text x="600" y="354" class="muted">- 副作用と新リスクを識別</text>
+
+  <rect x="90" y="250" width="320" height="110" rx="14" class="box a"/>
+  <text x="120" y="285" class="text">A (Act)</text>
+  <text x="120" y="312" class="muted">- 有効なやり方を標準化（ルール/制度/自動化）</text>
+  <text x="120" y="333" class="muted">- 無効なら Plan に戻り仮説を修正</text>
+  <text x="120" y="354" class="muted">- 学びを再利用可能な資産にする</text>
+
+  <path d="M410,165 C470,165 510,165 570,165" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M730,220 C730,230 730,240 730,250" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M570,305 C510,305 470,305 410,305" class="arrow" marker-end="url(#arrowHead)"/>
+  <path d="M250,250 C250,240 250,230 250,220" class="arrow" marker-end="url(#arrowHead)"/>
+</svg>
